@@ -12,6 +12,9 @@ Route::get('/cms/profile', function () {
 Route::get('/cms/galery', function () {
     return view('pages.Galery');
 });
+Route::get('/cms/news', function () {
+    return view('pages.News');
+});
 
 Route::fallback(function () {
     return view('frontend');
