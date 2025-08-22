@@ -41,7 +41,7 @@ export default function profileController() {
     );
     let isResetting = false;
     $(document).ready(function () {
-        $("#vision, #mission, #history").summernote({
+        $("#vision, #mission, #vision2, #mission2, #history").summernote({
             height: 150,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -64,6 +64,8 @@ export default function profileController() {
             rules: {
                 vision: { summernoteRequired: true },
                 mission: { summernoteRequired: true },
+                vision2: { summernoteRequired: true },
+                mission2: { summernoteRequired: true },
                 history: { summernoteRequired: true },
                 structure: {
                     required: true,
@@ -74,6 +76,8 @@ export default function profileController() {
             messages: {
                 vision: "Visi wajib diisi.",
                 mission: "Misi wajib diisi.",
+                vision2: "Visi wajib diisi.",
+                mission2: "Misi wajib diisi.",
                 history: "Sejarah wajib diisi.",
                 structure: {
                     required: "File struktur organisasi wajib diunggah.",
@@ -146,7 +150,7 @@ export default function profileController() {
         $("#formProfile")[0].reset();
         $("#formProfile").validate().resetForm();
 
-        $("#vision, #mission, #history").each(function () {
+        $("#vision, #mission,#vision2, #mission2, #history").each(function () {
             $(this).summernote("code", "");
             $(this).closest(".input-wrapper").find(".note-editor")
                 .css("border", "")
@@ -154,7 +158,7 @@ export default function profileController() {
         });
 
         $("#structure").val("");
-        $("#vision, #mission, #history").val("");
+        $("#vision, #mission,#vision1, #mission1, #history").val("");
         $("#formProfile").find(".border-red-500, .border-green-500")
             .removeClass("border-red-500 border-green-500 border");
 

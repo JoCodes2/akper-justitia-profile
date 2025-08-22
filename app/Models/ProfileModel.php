@@ -14,6 +14,8 @@ class ProfileModel extends Model
         'id',
         'vision',
         'mission',
+        'vision2',
+        'mision2',
         'history',
         'structure',
         'created_at',

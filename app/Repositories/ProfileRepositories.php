@@ -31,6 +31,8 @@ class ProfileRepositories implements ProfileInterfaces
             $data = new $this->profileModel;
             $data->vision = $request->input('vision');
             $data->mission = $request->input('mission');
+            $data->vision2 = $request->input('vision2');
+            $data->mission2 = $request->input('mission2');
             $data->history = $request->input('history');
             if ($request->hasFile('structure')) {
                 $fileName = FileUploadHendler::uploadFile(

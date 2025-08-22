@@ -20,6 +20,8 @@ class ProfileRequest extends FormRequest
         return [
             'vision'    => 'required',
             'mission'   => 'required',
+            'vision2'   => 'required',
+            'mission2'  => 'required',
             'history'   => 'required',
             'structure' => [
                 $isCreateRoute ? 'required' : 'nullable',

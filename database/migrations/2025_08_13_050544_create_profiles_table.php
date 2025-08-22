@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->text('vision');
             $table->text('mission');
+            $table->text('vision2');
+            $table->text('mission2');
             $table->text('history');
             $table->string('structure');
             $table->timestamps();
