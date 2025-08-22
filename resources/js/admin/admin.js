@@ -9,8 +9,10 @@ window.$ = window.jQuery = $;
 
 import initTemplateUI from './initTemplateUI.js';
 import profileController from "./controller/profile.controller.js";
+import galeriController from './controller/galeri.controller.js';
 $(function () {
     initTemplateUI();
     profileController();
+    galeriController();
 });
 

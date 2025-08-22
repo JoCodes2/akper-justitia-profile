@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,15 @@ Route::fallback(function () {
 Route::prefix('justitia')->group(function () {
     // Routes profile
     Route::prefix('profile')->controller(ProfileController::class)->group(function () {
+        Route::get('/', 'getAllData');
+        Route::post('/create', 'createData');
+        Route::get('/get/{id}', 'getDataById');
+        Route::post('/update/{id}', 'updateData');
+        Route::delete('/delete/{id}', 'deleteData');
+    });
+
+    // Routes galeri
+    Route::prefix('galeri')->controller(GaleriController::class)->group(function () {
         Route::get('/', 'getAllData');
         Route::post('/create', 'createData');
         Route::get('/get/{id}', 'getDataById');
