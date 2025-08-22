@@ -28,8 +28,8 @@ const VisiMisi2 = () => {
                 {/* Judul */}
                 <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                        Visi &{" "}
-                        <span className="text-primary">Misi Keilmuan</span>
+                        Visi & Misi{" "}
+                        <span className="text-primary">Keilmuan</span>
                     </h2>
                     <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
                         Landasan utama Akademi Keperawatan Justitia dalam

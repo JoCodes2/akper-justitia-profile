@@ -64,7 +64,6 @@ class ProfileService {
                 responseData = await apiPost(`${appUrl}/justitia/profile/update/${id}`, formData);
             } else {
                 responseData = await apiPost(`${appUrl}/justitia/profile/create`, formData);
-                console.log(responseData);
 
             }
 
@@ -96,8 +95,6 @@ class ProfileService {
                 try {
                     const response = await axios.delete(`${appUrl}/justitia/profile/delete/${id}`);
                     const responseData = response.data;
-
-                    console.log(responseData);
 
                     if (responseData.code === 200) {
                         showAlert('success', 'Data berhasil dihapus');
