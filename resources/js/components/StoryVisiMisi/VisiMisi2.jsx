@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const VisiMisi = () => {
+const VisiMisi2 = () => {
     const [vision, setVision] = useState("");
     const [mission, setMission] = useState("");
     const [loading, setLoading] = useState(true);
@@ -12,8 +12,8 @@ const VisiMisi = () => {
             .then((res) => {
                 const data = res.data?.data?.[0];
                 if (data) {
-                    setVision(data.vision || "");
-                    setMission(data.mission || "");
+                    setVision(data.vision2 || "");
+                    setMission(data.mission2 || "");
                 }
             })
             .catch((err) => {
@@ -29,9 +29,7 @@ const VisiMisi = () => {
                 <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
                         Visi &{" "}
-                        <span className="text-primary">
-                            Misi Perguruan Tinggi
-                        </span>
+                        <span className="text-primary">Misi Keilmuan</span>
                     </h2>
                     <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
                         Landasan utama Akademi Keperawatan Justitia dalam
@@ -73,4 +71,4 @@ const VisiMisi = () => {
     );
 };
 
-export default VisiMisi;
+export default VisiMisi2;

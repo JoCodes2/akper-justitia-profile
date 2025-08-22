@@ -9,7 +9,7 @@ const StoryPage = () => {
 
     useEffect(() => {
         axios
-            .get("/azlam/profile")
+            .get("/justitia/profile")
             .then((res) => {
                 const data = res.data?.data;
                 if (Array.isArray(data) && data.length > 0) {

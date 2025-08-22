@@ -14,6 +14,8 @@ class ProfileService {
 
                 $('#profileVision').html(item.vision || '-');
                 $('#profileMission').html(item.mission || '-');
+                $('#profileVision2').html(item.vision || '-');
+                $('#profileMission2').html(item.mission || '-');
                 $('#profileHistory').html(item.history || '-');
 
                 if (item.structure) {
@@ -62,6 +64,8 @@ class ProfileService {
                 responseData = await apiPost(`${appUrl}/justitia/profile/update/${id}`, formData);
             } else {
                 responseData = await apiPost(`${appUrl}/justitia/profile/create`, formData);
+                console.log(responseData);
+
             }
 
             if (responseData.data.code === 200) {

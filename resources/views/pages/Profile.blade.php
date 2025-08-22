@@ -44,46 +44,70 @@
                 </div>
             </div>
 
-            {{-- Vision & Mission Side by Side --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Vision Card --}}
-                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-indigo-500 p-2 rounded-lg mr-3">
-                                <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <h2 class="text-xl font-bold text-gray-800">Visi</h2>
+            {{-- Visi & Misi Perguruan Tinggi --}}
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-6">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-500 p-2 rounded-lg mr-3">
+                            <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
                         </div>
+                        <h2 class="text-xl font-bold text-gray-800">Visi & Misi Perguruan Tinggi</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{-- Vision --}}
                         <div class="pl-12">
-                            <div id="profileVision" class="prose prose-sm max-w-none text-gray-700 " >
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Visi</h3>
+                            <div id="profileVision" class="prose prose-sm max-w-none text-gray-700">
                                 <p class="text-gray-600 italic">-</p>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                {{-- Mission Card --}}
-                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-green-500 p-2 rounded-lg mr-3">
-                                <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <h2 class="text-xl font-bold text-gray-800">Misi</h2>
-                        </div>
+                        {{-- Mission --}}
                         <div class="pl-12">
-                            <div id="profileMission" class="prose prose-sm max-w-none text-gray-700 ">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Misi</h3>
+                            <div id="profileMission" class="prose prose-sm max-w-none text-gray-700">
                                 <p class="text-gray-600 italic">-</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- Visi & Misi Keilmuan --}}
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-6">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-400 p-2 rounded-lg mr-3">
+                            <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-800">Visi & Misi Keilmuan</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{-- Vision --}}
+                        <div class="pl-12">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Visi</h3>
+                            <div id="profileVision2" class="prose prose-sm max-w-none text-gray-700">
+                                <p class="text-gray-600 italic">-</p>
+                            </div>
+                        </div>
+
+                        {{-- Mission --}}
+                        <div class="pl-12">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Misi</h3>
+                            <div id="profileMission2" class="prose prose-sm max-w-none text-gray-700">
+                                <p class="text-gray-600 italic">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             {{-- History Card (Bottom) --}}
             <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
@@ -107,30 +131,65 @@
         </div>
     </x-base-body>
 
-    <x-base-modal modalId="upsertData" modalTitle="Tambah Profil Kampus" size="3xl" position="top">
+    <x-base-modal modalId="upsertData" modalTitle="Tambah Profil Kampus" size="5xl" position="top">
         <form id="formProfile" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate" class="space-y-5">
             @csrf
             <input type="hidden" id="id" name="id">
 
-            <div class="control-wrapper">
-                <label class="input-label block font-semibold text-gray-700 mb-1" for="vision">Visi</label>
-                <div class="input-wrapper">
-                    <textarea
-                        id="vision"
-                        name="vision"
-                        class="summernote" ></textarea>
+            {{-- Visi & Misi Perguruan Tinggi --}}
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-primary mb-4 border-b pb-2">
+                    Visi & Misi Perguruan Tinggi
+                </h3>
+
+                <div class="control-wrapper mb-4">
+                    <label class="input-label block font-semibold text-gray-700 mb-1" for="vision">Visi</label>
+                    <div class="input-wrapper">
+                        <textarea
+                            id="vision"
+                            name="vision"
+                            class="summernote"></textarea>
+                    </div>
+                </div>
+
+                <div class="control-wrapper">
+                    <label class="input-label block font-semibold text-gray-700 mb-1" for="mission">Misi</label>
+                    <div class="input-wrapper">
+                        <textarea
+                            id="mission"
+                            name="mission"
+                            class="summernote"></textarea>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-wrapper">
-                <label class="input-label block font-semibold text-gray-700 mb-1" for="mission">Misi</label>
-                <div class="input-wrapper">
-                    <textarea
-                        id="mission"
-                        name="mission"
-                        class="summernote" ></textarea>
+            {{-- Visi & Misi Keilmuan --}}
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-primary mb-4 border-b pb-2">
+                    Visi & Misi Keilmuan
+                </h3>
+
+                <div class="control-wrapper mb-4">
+                    <label class="input-label block font-semibold text-gray-700 mb-1" for="vision1">Visi</label>
+                    <div class="input-wrapper">
+                        <textarea
+                            id="vision2"
+                            name="vision2"
+                            class="summernote"></textarea>
+                    </div>
+                </div>
+
+                <div class="control-wrapper">
+                    <label class="input-label block font-semibold text-gray-700 mb-1" for="mission1">Misi</label>
+                    <div class="input-wrapper">
+                        <textarea
+                            id="mission2"
+                            name="mission2"
+                            class="summernote"></textarea>
+                    </div>
                 </div>
             </div>
+
 
             <div class="control-wrapper">
                 <label class="input-label block font-semibold text-gray-700 mb-1" for="history">Sejarah</label>
