@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import universityLogo from "../assets/logo-universitas.png";
+import { useScrollTo } from "./Ui/useScrollTo";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,8 @@ const Navbar = () => {
 
     const isActive = (path) => location.pathname === path;
     const isPrefixActive = (prefix) => location.pathname.startsWith(prefix);
+
+    const scrollTo = useScrollTo();
 
     return (
         <nav className="bg-primary backdrop-blur border-b border-primary-dark shadow-lg sticky top-0 z-50">
@@ -169,8 +172,9 @@ const Navbar = () => {
                             </div>
                         </div>
 
-                        <Link
-                            to="/kontak"
+                        <button
+                            onClick={() => scrollTo("footer", -80)}
+                            href="#footer"
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                                 isPrefixActive("/kontak")
                                     ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
@@ -178,7 +182,7 @@ const Navbar = () => {
                             }`}
                         >
                             Kontak
-                        </Link>
+                        </button>
                     </div>
                     {/* Mobile Menu Toggle */}
                     <div className="md:hidden">
@@ -394,17 +398,16 @@ const Navbar = () => {
                                 </div>
                             </div>
 
-                            <Link
-                                to="/kontak"
+                            <button
+                                onClick={() => scrollTo("footer", -80)}
                                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     isPrefixActive("/kontak")
                                         ? "bg-primary/15 text-primary font-semibold shadow-sm"
                                         : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                 }`}
-                                onClick={() => setIsOpen(false)}
                             >
                                 <span className="ml-2">Kontak</span>
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>

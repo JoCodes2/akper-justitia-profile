@@ -190,19 +190,26 @@
                 </div>
             </div>
 
+             {{-- Sejarah--}}
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-primary mb-4 border-b pb-2">
+                    Sejarah Singkat
+                </h3>
 
-            <div class="control-wrapper">
-                <label class="input-label block font-semibold text-gray-700 mb-1" for="history">Sejarah</label>
-                <div class="input-wrapper">
-                    <textarea
-                        id="history"
-                        name="history"
-                        class="summernote" ></textarea>
+                <div class="control-wrapper mb-4">
+                    <div class="input-wrapper">
+                        <textarea
+                            id="history"
+                            name="history"
+                            class="summernote" ></textarea>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-wrapper">
-                <label class="input-label block font-semibold text-gray-700 mb-1" for="structure">Struktur Organisasi</label>
+             <div class="mb-6">
+                <h3 class="text-lg font-bold text-primary mb-4 border-b pb-2">
+                    Struktur Organisasi
+                </h3>
                 <div class="input-wrapper">
                     <input
                         type="file"
