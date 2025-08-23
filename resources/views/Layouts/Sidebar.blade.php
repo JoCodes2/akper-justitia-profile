@@ -26,5 +26,11 @@ transform -translate-x-full md:translate-x-0 fixed md:static inset-y-0 left-0 z-
             <i class="fa-solid fa-book"></i>
             Galeri
         </a>
+         <a href="{{ url('/cms/news') }}"
+        class="flex items-center gap-3 rounded-md px-3 py-2 transition
+        {{ request()->is('cms/news') ? 'bg-primary text-white font-semibold' : 'hover:bg-gray-100' }}">
+            <i class="fa-solid fa-book"></i>
+            Berita
+        </a>
     </nav>
 </aside>

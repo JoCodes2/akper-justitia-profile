@@ -1,97 +1,117 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, User } from "lucide-react";
 import Modal from "../components/Ui/Modal.jsx";
-import news1 from "../assets/carousel/slide1.jpeg";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import FadeIn from "../components/Ui/FadeIn.jsx";
+import { apiGet } from "../admin/helper/api.js";
 
 const News = () => {
-    const dummyNews = [
-        {
-            title: "Universitas AZLAM Buka Program Magang MBKM untuk Mahasiswa",
-            image: news1,
-            date: "25 Juli 2025",
-            author: "Admin Kampus",
-            slug: "magang-mbkm-azlam",
-            category: "Berita",
-            excerpt:
-                "Program magang MBKM memberikan pengalaman langsung kepada mahasiswa...",
-            description: `Program magang MBKM memberikan pengalaman langsung kepada mahasiswa untuk mengembangkan potensi dan kompetensi di dunia kerja nyata.
-
-Kegiatan ini merupakan implementasi dari kebijakan Merdeka Belajar Kampus Merdeka (MBKM) yang bertujuan agar mahasiswa siap terjun di dunia industri dengan pengalaman yang relevan.`,
-        },
-        {
-            title: "Pengumuman Libur Kuliah Semester Ganjil 2025",
-            image: news1,
-            date: "20 Juli 2025",
-            author: "Biro Akademik",
-            slug: "pengumuman-libur-kuliah",
-            category: "Pengumuman",
-            excerpt:
-                "Sehubungan dengan libur semester ganjil, seluruh kegiatan perkuliahan akan dihentikan sementara...",
-            description: `Sehubungan dengan libur semester ganjil, seluruh kegiatan perkuliahan akan dihentikan sementara mulai 25 Juli hingga 1 Agustus 2025.
-
-Diharapkan mahasiswa memanfaatkan waktu ini untuk istirahat dan mempersiapkan diri menghadapi semester baru.`,
-        },
-        {
-            title: "Seminar Nasional Teknologi Pangan",
-            image: news1,
-            date: "18 Juli 2025",
-            author: "Humas Kampus",
-            slug: "seminar-nasional-teknologi-pangan",
-            category: "Event",
-            excerpt:
-                "Seminar Nasional ini menghadirkan pembicara dari berbagai universitas dan industri...",
-            description: `Seminar Nasional Teknologi Pangan diadakan di Aula Universitas AZLAM dengan tema "Inovasi Pangan untuk Masa Depan".
-
-Acara ini dihadiri oleh mahasiswa, dosen, dan praktisi industri dari seluruh Indonesia.`,
-        },
-    ];
+    const [newsList, setNewsList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState("Semua");
+    const [selectedNews, setSelectedNews] = useState(null);
 
     const categories = ["Semua", "Pengumuman", "Event", "Berita"];
 
-    const [selectedCategory, setSelectedCategory] = useState("Semua");
-    const [selectedNews, setSelectedNews] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await apiGet(`${appUrl}/justitia/news`);
+                if (res?.data?.data) {
+                    const mapped = res.data.data.map((item) => ({
+                        id: item.id,
+                        title: item.title,
+                        image: `/uploads/news/${item.image}`,
+                        dateObj: new Date(item.date_upload),
+                        date: new Date(item.date_upload).toLocaleDateString(
+                            "id-ID",
+                            {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                            }
+                        ),
+                        author: item.created_by ?? "Admin Kampus",
+                        category:
+                            item.category === "news"
+                                ? "Berita"
+                                : item.category === "event"
+                                ? "Event"
+                                : "Pengumuman",
+                        excerpt:
+                            item.description
+                                .replace(/<[^>]+>/g, "")
+                                .slice(0, 80) + "...",
+                        description: item.description,
+                    }));
+
+                    // urutkan berdasarkan tanggal terbaru
+                    const sorted = mapped.sort((a, b) => b.dateObj - a.dateObj);
+
+                    setNewsList(sorted);
+                }
+            } catch (error) {
+                console.error("Error fetching news:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const filteredNews =
+        selectedCategory === "Semua"
+            ? newsList
+            : newsList.filter((news) => news.category === selectedCategory);
 
     const openModal = (news) => setSelectedNews(news);
     const closeModal = () => setSelectedNews(null);
 
-    const filteredNews =
-        selectedCategory === "Semua"
-            ? dummyNews
-            : dummyNews.filter((news) => news.category === selectedCategory);
+    const getCategoryColor = (category) => {
+        switch (category) {
+            case "Berita":
+                return "bg-blue-100 text-blue-600";
+            case "Event":
+                return "bg-green-100 text-green-600";
+            case "Pengumuman":
+                return "bg-yellow-100 text-yellow-600";
+            default:
+                return "bg-gray-100 text-gray-600";
+        }
+    };
 
     return (
         <>
             <Navbar />
-            <section className="py-8 bg-gray-50">
+            <section className="py-20 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Title */}
+                    {/* Heading */}
                     <FadeIn delay={0.2}>
-                        <div className="text-center mb-6">
+                        <div className="text-center mb-10">
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                                 Berita{" "}
                                 <span className="text-primary">Terbaru</span>
                             </h2>
                             <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-                                Ikuti perkembangan terbaru seputar Universitas
-                                Abdul Aziz Lamadjido.
+                                Ikuti perkembangan terbaru seputar Akademi
+                                Keperawatan Justitia
                             </p>
                         </div>
                     </FadeIn>
 
-                    {/* Filter Navbar */}
-                    <FadeIn delay={0.4}>
-                        <div className="flex justify-center gap-4 mb-10 flex-wrap">
+                    {/* Filter Kategori */}
+                    <FadeIn delay={0.3}>
+                        <div className="flex justify-center gap-3 mb-12 flex-wrap">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
                                     onClick={() => setSelectedCategory(cat)}
-                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
                                         selectedCategory === cat
                                             ? "bg-primary text-white"
-                                            : "bg-white text-gray-700 border hover:bg-gray-100"
+                                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                                     }`}
                                 >
                                     {cat}
@@ -100,20 +120,39 @@ Acara ini dihadiri oleh mahasiswa, dosen, dan praktisi industri dari seluruh Ind
                         </div>
                     </FadeIn>
 
-                    {/* Cards */}
-                    <FadeIn delay={0.6}>
-                        {filteredNews.length > 0 ? (
+                    {/* Grid Berita */}
+                    <FadeIn delay={0.3}>
+                        {loading ? (
+                            <p className="text-center text-gray-500">
+                                Memuat berita...
+                            </p>
+                        ) : filteredNews.length === 0 ? (
+                            <p className="text-center text-gray-500">
+                                Tidak ada berita dalam kategori ini.
+                            </p>
+                        ) : (
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                {filteredNews.map((news, index) => (
+                                {filteredNews.map((news) => (
                                     <div
-                                        key={index}
-                                        className="bg-white rounded-xl shadow hover:shadow-md transition-all overflow-hidden"
+                                        key={news.id}
+                                        className="bg-white rounded-xl shadow hover:shadow-md transition-all overflow-hidden relative"
                                     >
-                                        <img
-                                            src={news.image}
-                                            alt={news.title}
-                                            className="w-full h-48 object-cover"
-                                        />
+                                        {/* Gambar dengan badge kategori */}
+                                        <div className="relative">
+                                            <img
+                                                src={news.image}
+                                                alt={news.title}
+                                                className="w-full h-60 object-contain bg-gray-100"
+                                            />
+                                            <span
+                                                className={`absolute top-2 right-2 px-3 py-1 rounded-md text-sm font-medium shadow ${getCategoryColor(
+                                                    news.category
+                                                )}`}
+                                            >
+                                                {news.category}
+                                            </span>
+                                        </div>
+
                                         <div className="p-5">
                                             <div className="flex items-center text-sm text-gray-500 mb-2 gap-3">
                                                 <span className="flex items-center">
@@ -141,10 +180,6 @@ Acara ini dihadiri oleh mahasiswa, dosen, dan praktisi industri dari seluruh Ind
                                     </div>
                                 ))}
                             </div>
-                        ) : (
-                            <p className="text-center text-gray-500">
-                                Tidak ada berita pada kategori ini.
-                            </p>
                         )}
                     </FadeIn>
                 </div>
@@ -160,26 +195,31 @@ Acara ini dihadiri oleh mahasiswa, dosen, dan praktisi industri dari seluruh Ind
                             <img
                                 src={selectedNews.image}
                                 alt={selectedNews.title}
-                                className="w-full h-64 object-cover rounded-md"
+                                className="w-full h-60 object-contain bg-gray-100"
                             />
                             <div className="text-gray-500 text-sm flex flex-wrap gap-4">
                                 <span className="flex items-center">
                                     <Calendar className="w-4 h-4 mr-1.5" />
                                     {selectedNews.date}
                                 </span>
+                                <span
+                                    className={`px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(
+                                        selectedNews.category
+                                    )}`}
+                                >
+                                    {selectedNews.category}
+                                </span>
                                 <span className="flex items-center">
                                     <User className="w-4 h-4 mr-1.5" />
                                     {selectedNews.author}
                                 </span>
-                                <span className="flex items-center">
-                                    <code className="text-xs bg-gray-100 px-2 py-0.5 rounded">
-                                        {selectedNews.slug}
-                                    </code>
-                                </span>
                             </div>
-                            <div className="whitespace-pre-line text-gray-700 text-sm sm:text-base leading-relaxed">
-                                {selectedNews.description}
-                            </div>
+                            <div
+                                className="prose prose-sm sm:prose-base text-gray-700"
+                                dangerouslySetInnerHTML={{
+                                    __html: selectedNews.description,
+                                }}
+                            />
                         </div>
                     )}
                 </Modal>

@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ProfileRequest extends FormRequest
+class NewsRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
     public function authorize(): bool
     {
         return true;
@@ -15,15 +18,13 @@ class ProfileRequest extends FormRequest
 
     public function rules(): array
     {
-        $isCreateRoute = $this->is('justitia/profile/create');
+        $isCreateRoute = $this->is('justitia/news/create');
 
         return [
-            'vision'    => 'required',
-            'mission'   => 'required',
-            'vision2'   => 'required',
-            'mission2'  => 'required',
-            'history'   => 'required',
-            'structure' => [
+            'title'    => 'required',
+            'description'   => 'required',
+            'category'   => 'required',
+            'image' => [
                 $isCreateRoute ? 'required' : 'nullable',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048'

@@ -13,7 +13,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <script>
+        let appUrl = '{{ env('APP_URL') }}';
+    </script>
 
     <!-- Meta Description -->
     <meta name="description" content="Akademi Keperawatan Justitia Palu menyediakan pendidikan keperawatan profesional dengan dosen berpengalaman, fasilitas lengkap, dan peluang karier di dunia kesehatan.">
