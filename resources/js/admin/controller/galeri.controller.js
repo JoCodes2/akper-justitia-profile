@@ -1,100 +1,90 @@
 import $ from "jquery";
 import "jquery-validation";
-
+import "jquery-validation/dist/additional-methods";
 import galeriService from "../service/galeri.service";
 
 export default function galeriController() {
     galeriService.loadData();
 
-    $.validator.addMethod(
-        "filesize",
-        function (value, element, param) {
-            if (this.optional(element) || !element.files.length) return true;
-            return element.files[0].size <= param;
-        },
-        "File terlalu besar."
-    );
-
-    $.validator.addMethod(
-        "fileextension",
-        function (value, element, param) {
-            if (this.optional(element) || !element.files.length) return true;
-            const allowed = param.split("|");
-            const ext = value.split(".").pop().toLowerCase();
-            return allowed.includes(ext);
-        },
-        "Format file tidak diizinkan."
-    );
-
     let isResetting = false;
 
+
     $(document).ready(function () {
-        $("#formUpsertGalery").validate({
-            ignore: "",
+        $.validator.addMethod("filesize", function (value, element, param) {
+            if (element.files.length === 0) return true;
+            return this.optional(element) || (element.files[0].size <= param);
+        }, "Ukuran file terlalu besar.");
+
+        $("#formGaleri").validate({
             rules: {
                 name: { required: true },
+                date_upload: { required: true },
+                created_by: { required: true },
                 image: {
                     required: function () {
-                        // Kalau edit, file boleh kosong
-                        return !$("#id").val();
+                        return $("#id").val() === "" || $("#id").val() === null;
                     },
-                    fileextension: "jpg|jpeg|png",
-                    filesize: 2 * 1024 * 1024
+                    extension: "jpg|jpeg|png",
+                    filesize: 2048000
                 }
             },
             messages: {
-                name: "Judul wajib diisi.",
+                name: "Form wajib diisi.",
+                date_upload: "Form wajib diisi.",
+                created_by: "Form wajib diisi.",
                 image: {
                     required: "Gambar wajib diunggah.",
-                    fileextension: "Format file harus JPG atau PNG.",
+                    extension: "Format file harus JPG, JPEG, atau PNG.",
                     filesize: "Ukuran file maksimal 2MB."
                 }
             },
             errorPlacement: function (error, element) {
                 error.addClass("text-red-500 text-sm mt-1");
-                error.insertAfter(element);
+
+                if (element.closest(".input-wrapper").length) {
+                    error.appendTo(element.closest(".input-wrapper"));
+                } else {
+                    error.insertAfter(element);
+                }
             },
             highlight: function (element) {
-                $(element)
-                    .addClass("border border-red-500")
+                const $el = $(element);
+                $el.addClass("border border-red-500")
                     .removeClass("border-green-500");
             },
             unhighlight: function (element) {
+                const $el = $(element);
+
                 if (isResetting) {
-                    $(element).removeClass("border-red-500 border-green-500 border");
+                    $el.removeClass("border-red-500 border-green-500 border");
                     return;
                 }
-                $(element)
-                    .addClass("border border-green-500")
+
+                $el.addClass("border border-green-500")
                     .removeClass("border-red-500");
             }
         });
     });
 
-        // Edit data
-    $(document).on("click", ".editGaleri", async function () {
-        const id = $(this).data("id");
 
-        try {
-            const response = await galeriService.getById(id);
-            const data = response.data.data;
+    // Tombol tambah galeri → reset form
+    $(document).on("click", "#addGaleri", function () {
+        isResetting = true;
+        $("#id").val("");
+        $("#formGaleri")[0].reset();
+        $("#formGaleri").validate().resetForm();
 
-            // Isi form dengan data lama
-            $("#id").val(data.id);
-            $("#name").val(data.name);
+        $("#image").val("");
+        $("#formGaleri").find(".border-red-500, .border-green-500")
+            .removeClass("border-red-500 border-green-500 border");
 
-            // File input dikosongkan biar user bisa upload baru
-            $("#image").val("");
+        const validator = $("#formGaleri").validate();
+        validator.resetForm();
 
-            // Ubah judul modal biar jelas
-            $("#upsertGaleri .modal-title").text("Edit Galeri");
+        $("#formGaleri").find("label.error").remove();
+        $("#formGaleri").find(".valid").removeClass("valid");
 
-            // Tampilkan modal
-            $("#upsertGaleri").removeClass("hidden");
-        } catch (error) {
-            console.error("Error mengambil data:", error);
-            showAlert("error", "Gagal mengambil data galeri");
-        }
+        isResetting = false;
     });
 
 
@@ -103,36 +93,35 @@ export default function galeriController() {
     }
 
     // Submit form
-    $("#formUpsertGalery").submit(function (e) {
+    $("#formGaleri").submit(function (e) {
         e.preventDefault();
         if ($(this).valid()) {
             galeriService.upsertGaleri(e, checkingEdit);
         }
     });
 
+    // Edit data galeri
+    $(document).on("click", ".edit-galeri", function () {
+        const id = $(this).data("id");
+        const $form = $("#formGaleri");
+        $form[0].reset();
+        $form.validate().resetForm();
+
+        $("#image").val("");
+        $("#imageTitle").text("Upload Gambar baru");
+
+        $form.find(".border-red-500, .border-green-500")
+            .removeClass("border-red-500 border-green-500 border");
+
+        $form.find("label.error").remove();
+
+        galeriService.getDataById(id, checkingEdit);
+    });
+
     // Delete data
-    $(document).on("click", ".deleteGaleri", function () {
+    $(document).on("click", ".delete-galeri", function () {
         const id = $(this).data("id");
         galeriService.deleteData(id);
     });
 
-    // Reset form saat tambah
-    $(document).on("click", "#addGaleri", function () {
-        isResetting = true;
-
-        $("#formUpsertGalery")[0].reset();
-        $("#formUpsertGalery").validate().resetForm();
-
-        $("#formUpsertGalery").find(".border-red-500, .border-green-500")
-            .removeClass("border-red-500 border-green-500 border");
-
-        $("#id").val("");
-
-        const validator = $("#formUpsertGalery").validate();
-        validator.resetForm();
-        $("#formUpsertGalery").find("label.error").remove();
-        $("#formUpsertGalery").find(".valid").removeClass("valid");
-
-        isResetting = false;
-    });
 }

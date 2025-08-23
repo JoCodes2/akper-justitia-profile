@@ -9,29 +9,30 @@ use Illuminate\Http\Request;
 
 class GaleriController extends Controller
 {
-    protected $GaleriRepo;
-    public function __construct(GaleriRepositories $GaleriRepo)
+     protected $galeriRepo;
+
+    public function __construct(galeriRepositories $galeriRepo)
     {
-        $this->GaleriRepo = $GaleriRepo;
+        $this->galeriRepo = $galeriRepo;
     }
     public function getAllData()
     {
-        return $this->GaleriRepo->getAllData();
-    }
-    public function createData(GaleriRequest $request)
-    {
-        return $this->GaleriRepo->createData($request);
+        return $this->galeriRepo->getAllData();
     }
     public function getDataById($id)
     {
-        return $this->GaleriRepo->getDataById($id);
+        return $this->galeriRepo->getDataById($id);
+    }
+    public function createData(GaleriRequest $request)
+    {
+        return $this->galeriRepo->createData($request);
     }
     public function updateData(GaleriRequest $request, $id)
     {
-        return $this->GaleriRepo->updateData($request, $id);
+        return $this->galeriRepo->updateData($request, $id);
     }
     public function deleteData($id)
     {
-        return $this->GaleriRepo->deleteData($id);
+        return $this->galeriRepo->deleteData($id);
     }
 }
