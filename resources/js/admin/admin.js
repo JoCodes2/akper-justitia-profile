@@ -10,6 +10,8 @@ import profileController from "./controller/profile.controller.js";
 import newsController from './controller/news.controller.js';
 import galeriController from './controller/galeri.controller.js';
 import leaderController from './controller/leader.controller.js';
+import userController from './controller/user.controller.js';
+
 
 $(function () {
     initTemplateUI();
@@ -17,5 +19,7 @@ $(function () {
     leaderController();
     newsController();
     galeriController();
+    userController();
+
 });
 
