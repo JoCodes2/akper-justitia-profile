@@ -1,27 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Calendar, User } from "lucide-react";
 import Modal from "../Ui/Modal.jsx";
-import news1 from "../../assets/carousel/slide1.jpeg";
 import Button from "../Ui/Button.jsx";
 import { Link } from "react-router-dom";
+import { apiGet } from "../../admin/helper/api.js";
+
 const NewsSection = () => {
-    const dummyNews = [
-        {
-            title: "Universitas AZLAM Buka Program Magang MBKM untuk Mahasiswa",
-            image: news1,
-            date: "25 Juli 2025",
-            author: "Admin Kampus",
-            slug: "magang-mbkm-azlam",
-            excerpt:
-                "Program magang MBKM memberikan pengalaman langsung kepada mahasiswa...",
-            description: `Program magang MBKM memberikan pengalaman langsung kepada mahasiswa untuk mengembangkan potensi dan kompetensi di dunia kerja nyata.
-
-Kegiatan ini merupakan implementasi dari kebijakan Merdeka Belajar Kampus Merdeka (MBKM) yang bertujuan agar mahasiswa siap terjun di dunia industri dengan pengalaman yang relevan.`,
-        },
-        // ... berita lainnya
-    ];
-
+    const [newsList, setNewsList] = useState([]);
     const [selectedNews, setSelectedNews] = useState(null);
+
+    const baseUrl = "/uploads/news/";
+
+    // helper kategori warna
+    const getCategoryColor = (category) => {
+        switch (category) {
+            case "news":
+                return "bg-blue-100 text-blue-600";
+            case "event":
+                return "bg-green-100 text-green-600";
+            case "announcement":
+                return "bg-yellow-100 text-yellow-600";
+            default:
+                return "bg-gray-100 text-gray-600";
+        }
+    };
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                const res = await apiGet(`${appUrl}/justitia/news`);
+
+                if (res.data.code === 200) {
+                    // hanya ambil 3 berita terbaru
+                    const latestNews = res.data.data
+                        .sort(
+                            (a, b) =>
+                                new Date(b.date_upload) -
+                                new Date(a.date_upload)
+                        )
+                        .slice(0, 3);
+                    setNewsList(latestNews);
+                }
+            } catch (err) {
+                console.error("Gagal mengambil berita:", err);
+            }
+        };
+        fetchNews();
+    }, []);
+
     const openModal = (news) => setSelectedNews(news);
     const closeModal = () => setSelectedNews(null);
 
@@ -33,39 +59,53 @@ Kegiatan ini merupakan implementasi dari kebijakan Merdeka Belajar Kampus Merdek
                         Berita <span className="text-primary">Terbaru</span>
                     </h2>
                     <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-                        Ikuti perkembangan terbaru seputar Universitas Abdul
-                        Aziz Lamadjido.
+                        Ikuti perkembangan terbaru seputar Akademi Keperawatan
+                        Justitia
                     </p>
                 </div>
-
-                {/* Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {dummyNews.map((news, index) => (
+                    {newsList.map((news) => (
                         <div
-                            key={index}
+                            key={news.id}
                             className="bg-white rounded-xl shadow hover:shadow-md transition-all overflow-hidden"
                         >
-                            <img
-                                src={news.image}
-                                alt={news.title}
-                                className="w-full h-48 object-cover"
-                            />
+                            <div className="relative">
+                                <img
+                                    src={`${baseUrl}/${news.image}`}
+                                    alt={news.title}
+                                    className="w-full h-48 object-scale-down bg-gray-100"
+                                />
+                                <span
+                                    className={`absolute top-2 right-2 px-3 py-1 rounded-md text-sm font-medium shadow ${getCategoryColor(
+                                        news.category
+                                    )}`}
+                                >
+                                    {news.category === "news"
+                                        ? "Berita"
+                                        : news.category === "event"
+                                        ? "Event"
+                                        : "Pengumuman"}
+                                </span>
+                            </div>
                             <div className="p-5">
                                 <div className="flex items-center text-sm text-gray-500 mb-2 gap-3">
                                     <span className="flex items-center">
                                         <Calendar className="w-4 h-4 mr-1.5" />
-                                        {news.date}
+                                        {news.date_upload}
                                     </span>
                                     <span className="flex items-center">
                                         <User className="w-4 h-4 mr-1.5" />
-                                        {news.author}
+                                        {news.created_by ?? "Admin"}
                                     </span>
                                 </div>
                                 <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
                                     {news.title}
                                 </h3>
                                 <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                                    {news.excerpt}
+                                    {news.description
+                                        .replace(/<[^>]+>/g, "")
+                                        .slice(0, 80)}
+                                    ...
                                 </p>
                                 <button
                                     onClick={() => openModal(news)}
@@ -78,7 +118,6 @@ Kegiatan ini merupakan implementasi dari kebijakan Merdeka Belajar Kampus Merdek
                     ))}
                 </div>
 
-                {/* CTA */}
                 <div className="text-center mt-10">
                     <Link to="/berita">
                         <Button size="md" variant="default">
@@ -97,28 +136,39 @@ Kegiatan ini merupakan implementasi dari kebijakan Merdeka Belajar Kampus Merdek
                 {selectedNews && (
                     <div className="space-y-4">
                         <img
-                            src={selectedNews.image}
+                            src={`${baseUrl}/${selectedNews.image}`}
                             alt={selectedNews.title}
-                            className="w-full h-64 object-cover rounded-md"
+                            className="w-full h-48 object-scale-down bg-gray-100"
                         />
                         <div className="text-gray-500 text-sm flex flex-wrap gap-4">
                             <span className="flex items-center">
                                 <Calendar className="w-4 h-4 mr-1.5" />
-                                {selectedNews.date}
+                                {selectedNews.date_upload}
                             </span>
+
+                            <span
+                                className={`px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(
+                                    selectedNews.category
+                                )}`}
+                            >
+                                {selectedNews.category === "news"
+                                    ? "Berita"
+                                    : selectedNews.category === "event"
+                                    ? "Event"
+                                    : "Pengumuman"}
+                            </span>
+
                             <span className="flex items-center">
                                 <User className="w-4 h-4 mr-1.5" />
-                                {selectedNews.author}
-                            </span>
-                            <span className="flex items-center">
-                                <code className="text-xs bg-gray-100 px-2 py-0.5 rounded">
-                                    {selectedNews.slug}
-                                </code>
+                                {selectedNews.created_by ?? "Admin"}
                             </span>
                         </div>
-                        <div className="whitespace-pre-line text-gray-700 text-sm sm:text-base leading-relaxed">
-                            {selectedNews.description}
-                        </div>
+                        <div
+                            className="prose prose-sm sm:prose-base text-gray-700"
+                            dangerouslySetInnerHTML={{
+                                __html: selectedNews.description,
+                            }}
+                        />
                     </div>
                 )}
             </Modal>
