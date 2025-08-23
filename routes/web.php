@@ -4,6 +4,7 @@ use App\Http\Controllers\CMS\NewsController;
 use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\LeaderController;
 use App\Http\Controllers\CMS\ProfileController;
+use App\Http\Controllers\CMS\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/cms/dashboard', function () {
@@ -56,6 +57,15 @@ Route::prefix('justitia')->group(function () {
     });
     // Routes galeri
     Route::prefix('galeri')->controller(GaleriController::class)->group(function () {
+        Route::get('/', 'getAllData');
+        Route::post('/create', 'createData');
+        Route::get('/get/{id}', 'getDataById');
+        Route::post('/update/{id}', 'updateData');
+        Route::delete('/delete/{id}', 'deleteData');
+    });
+
+    // Routes galeri
+    Route::prefix('user')->controller(UserController::class)->group(function () {
         Route::get('/', 'getAllData');
         Route::post('/create', 'createData');
         Route::get('/get/{id}', 'getDataById');
