@@ -6,103 +6,190 @@ import $ from 'jquery';
 class GaleriService {
     async loadData() {
         try {
+            console.log('Mengambil data galeri dari:', `${appUrl}/justitia/galeri`);
+            const tableId = '#galeriTable'; // Definisikan tableId di sini
             const res = await apiGet(`${appUrl}/justitia/galeri`);
-            const data = Array.isArray(res.data?.data) ? res.data.data : [];
+            console.log('Response dari API:', res);
 
-            const tbody = $("#galeryTable tbody");
-            tbody.empty();
-
-            if (data.length === 0) {
-                tbody.append(`
-                    <tr class="border-b border-gray-200">
-                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                            Tidak ada data
-                        </td>
-                    </tr>
-                `);
-                return;
+            // Pastikan response memiliki struktur yang benar
+            if (!res.data || res.data.code !== 200) {
+                console.error('Response tidak valid:', res);
+                throw new Error('Response API tidak valid');
             }
 
-            data.forEach((item, index) => {
-                tbody.append(`
-                    <tr class="border-b border-gray-200">
-                        <td class="px-6 py-4">${index + 1}</td>
-                        <td class="px-6 py-4">${item.name}</td>
-                        <td class="px-6 py-4">
-                            <img src="/uploads/galeri/${item.image}"
-                                 alt="${item.name}"
-                                 class="h-16 rounded-lg" />
-                        </td>
-                        <td class="px-6 py-4">${item.created_by ?? '-'}</td>
-                        <td class="px-6 py-4">${item.date_upload}</td>
-                        <td class="px-6 py-4 text-center">
-                        <button
-                            class="editGaleri px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            data-id="${item.id}">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button
-                            class="deleteGaleri px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                            data-id="${item.id}">
-                            <i class="fas fa-trash"></i> Hapus
-                        </button>
-                        </td>
-                    </tr>
-                `);
+            let data = Array.isArray(res.data?.data) ? res.data.data : []; // Simpan data yang diterima
+            let searchQuery = ''; // Definisikan searchQuery di sini
+            let perPage = 10; // Definisikan perPage di sini
+            let currentPage = 1; // Definisikan currentPage di sini
+            const renderTable = () => {
+                let filteredData = data.filter(item => {
+                    const query = searchQuery ? searchQuery.toLowerCase() : '';
+                    return (
+                         (item.name ? item.name.toLowerCase().includes(query) : false) ||
+                         (item.date_upload ? item.date_upload.toLowerCase().includes(query) : false) ||
+                         (item.created_by ? item.created_by.toLowerCase().includes(query) : false)
+                    );
+                });
+
+                const totalPages = Math.ceil(filteredData.length / perPage);
+                const start = (currentPage - 1) * perPage;
+                const end = start + perPage;
+                const pageData = filteredData.slice(start, end);
+
+                const $tbody = $(`${tableId} tbody`);
+                $tbody.empty();
+
+                if (data.length === 0) {
+                    $tbody.append(`
+                        <tr>
+                            <td colspan="6" class="text-center text-gray-500 py-6">
+                                <i class="fas fa-exclamation-circle mr-2"></i> Tidak ada data
+                            </td>
+                        </tr>
+                    `);
+                } else if (filteredData.length === 0) {
+                    $tbody.append(`
+                        <tr>
+                            <td colspan="6" class="text-center text-gray-500 py-6">
+                                <i class="fas fa-search-minus mr-2"></i> Hasil tidak ditemukan
+                            </td>
+                        </tr>
+                    `);
+                } else {
+                    pageData.forEach((item, index) => {
+
+                        const row = `
+                            <tr>
+                                <td class="px-6 py-3 text-sm text-gray-700">${start + index + 1}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">${item.name}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">${item.created_by}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">${item.date_upload}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">
+                                    ${item.image ? `<a href="${appUrl}/uploads/galeri/${item.image}" target="_blank" class="text-blue-500 hover:underline">${item.image}</a>` : '-'}
+                                </td>
+                                <td class="px-6 py-3 text-center text-sm">
+                                    <button class="text-blue-500 hover:text-blue-700 mx-1 edit-galeri"  data-modal-target="#upsertGaleri"  data-id="${item.id}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-500 hover:text-red-700 mx-1 delete-galeri" data-id="${item.id}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        $tbody.append(row);
+                    });
+                }
+
+                // Update info pagination
+                $(`#${tableId.replace('#', '')}_start`).text(filteredData.length ? start + 1 : 0);
+                $(`#${tableId.replace('#', '')}_end`).text(Math.min(end, filteredData.length));
+                $(`#${tableId.replace('#', '')}_total`).text(filteredData.length);
+
+                // Previous / Next buttons
+                $(`#${tableId.replace('#', '')}_prev`).prop('disabled', currentPage === 1);
+                $(`#${tableId.replace('#', '')}_next`).prop('disabled', currentPage === totalPages || totalPages === 0);
+
+                // Pagination numbers
+                const $paginationNumbers = $(`#${tableId.replace('#', '')}_pagination_numbers`);
+                $paginationNumbers.empty();
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = $(`<button class="px-3 py-1 border border-gray-300 rounded hover:bg-primary hover:text-white transition-colors">${i}</button>`);
+                    if (i === currentPage) btn.addClass('bg-primary text-white');
+                    btn.on('click', () => {
+                        currentPage = i;
+                        renderTable();
+                    });
+                    $paginationNumbers.append(btn);
+                }
+            };
+
+            // Event search
+            $(`${tableId}_search`).off('input').on('input', function () {
+                searchQuery = $(this).val();
+                currentPage = 1;
+                renderTable();
             });
+
+            // Event perPage
+            $(`${tableId}_perpage`).off('change').on('change', function () {
+                perPage = parseInt($(this).val());
+                currentPage = 1;
+                renderTable();
+            });
+
+            // Previous / Next
+            $(`#${tableId.replace('#', '')}_prev`).off('click').on('click', function () {
+                if (currentPage > 1) { currentPage--; renderTable(); }
+            });
+            $(`#${tableId.replace('#', '')}_next`).off('click').on('click', function () {
+                const totalPages = Math.ceil(data.length / perPage);
+                if (currentPage < totalPages) { currentPage++; renderTable(); }
+            });
+
+            renderTable();
+
+
+
+
         } catch (error) {
             console.error(error);
         }
     }
 
     async upsertGaleri(e, checkingEdit) {
-        e.preventDefault(); // cegah submit default form
+            const submitButton = $(e.target).find(':submit');
+            submitButton.attr('disabled', true);
 
-        const submitButton = $(e.target).find(':submit');
-        submitButton.attr('disabled', true);
+            try {
+                const formData = new FormData(e.target);
+                console.log('Data yang akan dikirim:', Object.fromEntries(formData));
+                let responseData;
 
-        try {
-            const formData = new FormData(e.target);
-            let responseData;
 
-            if (checkingEdit()) {
-                const id = $('#id').val();
-                responseData = await apiPost(`${appUrl}/justitia/galeri/update/${id}`, formData);
-            } else {
-                responseData = await apiPost(`${appUrl}/justitia/galeri/create`, formData);
+                if (checkingEdit()) {
+                    const id = $('#id').val();
+                    responseData = await apiPost(`${appUrl}/justitia/galeri/update/${id}`, formData);
+                } else {
+                    responseData = await apiPost(`${appUrl}/justitia/galeri/create`, formData);
+
+                }
+
+                if (responseData.data.code === 200) {
+                    showAlert('success', 'Data berhasil disimpan');
+                    $(`[data-close-modal="#upsertGaleri"]`).trigger('click');
+                    this.loadData();
+                } else {
+                    showAlert('error', 'Terjadi kesalahan server');
+                }
+
+            } catch (error) {
+                if (error.response && error.response.status === 422) {
+                    showAlert('warning', 'Periksa kembali inputan anda');
+                } else {
+                    showAlert('error', 'Terjadi kesalahan server');
+                }
+            } finally {
+                submitButton.attr('disabled', false);
             }
-
-            if (responseData?.data?.code === 200) {
-                showAlert('success', 'Data berhasil disimpan');
-
-                // Tutup modal
-                $('#upsertGaleri').addClass('hidden');
-
-                // Reset form
-                e.target.reset();
-                $('#id').val('');
-
-                // Reload data table
-                this.loadData();
-            } else {
-                showAlert('error', responseData?.data?.message || 'Terjadi kesalahan server');
-            }
-
-        } catch (error) {
-            if (error.response && error.response.status === 422) {
-                showAlert('warning', 'Periksa kembali inputan anda');
-                console.warn('Validation errors:', error.response.data.data);
-            } else {
-                console.error('Error:', error);
-                showAlert('error', 'Terjadi kesalahan server');
-            }
-        } finally {
-            submitButton.attr('disabled', false);
         }
-    }
 
-    async getById(id) {
-        return await apiGet(`${appUrl}/justitia/galeri/get/${id}`);
+    async getDataById(id, checkingEdit) {
+        try {
+            const res = await apiGet(`${appUrl}/justitia/galeri/get/${id}`);
+            const data = res.data?.data || {};
+            $('#id').val(data.id || '');
+            $('#name').val(data.name || '');
+            $('#date_upload').val(data.date_upload || '');
+            $('#created_by').val(data.created_by || '');
+
+            $('#image').val('');
+            $('#imageTitle').text('Upload Gambar baru');
+
+            checkingEdit();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async deleteData(id) {
@@ -128,6 +215,7 @@ class GaleriService {
             }
         );
     }
+
 }
 
 export default new GaleriService();
