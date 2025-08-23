@@ -105,6 +105,7 @@ export default function newsController() {
         isResetting = true;
 
         $("#formNews")[0].reset();
+        $("#id").val("");
         $("#formNews").validate().resetForm();
 
         $("#description").each(function () {

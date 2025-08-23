@@ -41,7 +41,7 @@
     </x-base-body>
 
     <x-base-modal modalId="upsertLeader" modalTitle="Form Data Pimpinan" size="5xl" position="top">
-        <form id="formNews" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate" class="space-y-5">
+        <form id="formLeader" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate" class="space-y-5">
             @csrf
             <input type="hidden" id="id" name="id">
 
@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="mb-6">
-                <label class="input-label block font-semibold text-gray-700 mb-1" for="image" id="imageTitle">Dokumentasi Berita </label>
+                <label class="input-label block font-semibold text-gray-700 mb-1" for="image" id="imageTitle">Gambar </label>
                 <div class="input-wrapper">
                     <input
                         type="file"

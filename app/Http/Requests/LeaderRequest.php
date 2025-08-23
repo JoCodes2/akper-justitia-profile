@@ -23,11 +23,16 @@ class LeaderRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isCreateRoute = $this->is('justitia/leader/create');
         return [
             'name' => 'required|string|max:255',
             'nip' => 'required',
             'position' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => [
+                $isCreateRoute ? 'required' : 'nullable',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048'
+            ],
 
         ];
     }
