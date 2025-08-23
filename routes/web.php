@@ -22,6 +22,9 @@ Route::get('/cms/news', function () {
 Route::get('/cms/leader', function () {
     return view('pages.Leader');
 });
+Route::get('/cms/user', function () {
+    return view('pages.User');
+});
 
 Route::fallback(function () {
     return view('frontend');
