@@ -21,7 +21,7 @@ export function showAlert(type = "success", message = "", duration = 3000) {
     const $container = $("#alert-container");
 
     const $alert = $(`
-        <div class="flex items-center gap-2 px-4 py-3 text-white rounded shadow-lg border-2 ${colors[type].bg} ${colors[type].border} animate-fadeIn">
+        <div class="flex items-center gap-2 px-4 py-3 text-white rounded-xl shadow-lg border-2 ${colors[type].bg} ${colors[type].border} animate-fadeIn">
             <i class="${colors[type].icon}"></i>
             <span>${message}</span>
         </div>
@@ -43,10 +43,6 @@ export function showConfirmation(message, onConfirm, onCancel) {
     const modalHtml = `
         <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn">
             <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6 text-center transform transition-all scale-95 hover:scale-100 duration-200">
-                <!-- Icon -->
-                <div class="flex justify-center mb-4">
-                    <i class="fas fa-question-circle text-yellow-500 text-5xl"></i>
-                </div>
 
                 <!-- Message -->
                 <p class="text-gray-800 text-lg mb-6 font-medium">${message}</p>
@@ -58,7 +54,7 @@ export function showConfirmation(message, onConfirm, onCancel) {
                         Batal
                     </button>
                     <button id="confirmYes"
-                        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-150">
+                        class="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors duration-150">
                         Ya
                     </button>
                 </div>
