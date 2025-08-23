@@ -156,16 +156,13 @@ class NewsService {
         try {
             const res = await apiGet(`${appUrl}/justitia/news/get/${id}`);
             const data = res.data?.data || {};
-            console.log(data);
 
             $('#id').val(data.id || '');
             $('#title').val(data.title || '');
             $('#category').val(data.category || '');
             $('#description').summernote('code', data.description || '');
-            $('#description').val('');
-
-            const $editor = $('#description').next('.note-editor');
-            $editor.removeClass('border-red-500 border-green-500');
+            $('#description').val(data.description || '');
+            $('#description').next('.note-editor').css('border', '');
 
             $('#image').val('');
             $('#imageTitle').text('Upload Gambar baru');
@@ -175,6 +172,8 @@ class NewsService {
             console.error(error);
         }
     }
+
+
 
     async upsertNews(e, checkingEdit) {
         const submitButton = $(e.target).find(':submit');
@@ -203,9 +202,7 @@ class NewsService {
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 showAlert('warning', 'Periksa kembali inputan anda');
-                console.warn('Validation errors:', error.response.data.data);
             } else {
-                console.error('Error:', error);
                 showAlert('error', 'Terjadi kesalahan server');
             }
         } finally {
@@ -229,7 +226,6 @@ class NewsService {
                         showAlert('error', 'Terjadi kesalahan server');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
                     showAlert('error', 'Terjadi kesalahan server');
 
                 }

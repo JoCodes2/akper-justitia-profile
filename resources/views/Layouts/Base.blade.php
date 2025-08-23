@@ -13,10 +13,9 @@
 
     {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-
     {{-- Vite CSS & JS --}}
     @vite(['resources/css/index.css', 'resources/js/admin/admin.js'])
-
+   
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen font-body">
     <div class="flex flex-1 overflow-hidden">

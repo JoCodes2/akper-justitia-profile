@@ -1,5 +1,6 @@
 import $ from "jquery";
 import "jquery-validation";
+import "jquery-validation/dist/additional-methods";
 import "summernote/dist/summernote-lite.css";
 import "summernote/dist/summernote-lite.js";
 import newsService from "../service/news.service";
@@ -7,6 +8,8 @@ import newsService from "../service/news.service";
 
 export default function newsController() {
     newsService.loadData();
+
+
     let isResetting = false;
     $(document).ready(function () {
         $("#description").summernote({
@@ -27,26 +30,32 @@ export default function newsController() {
             }
         });
 
+        $.validator.addMethod("filesize", function (value, element, param) {
+            if (element.files.length === 0) return true;
+            return this.optional(element) || (element.files[0].size <= param);
+        }, "Ukuran file maksimal {0} bytes.");
+
         $("#formNews").validate({
             ignore: "",
             rules: {
                 title: { required: true },
-                description: { summernoteRequired: true },
+                description: { required: true },
                 category: { required: true },
                 image: {
-                    required: true,
-                    fileextension: "jpg|jpeg|png",
-                    filesize: 2 * 1024 * 1024
+                    required: function () {
+                        return $("#id").val() === "" || $("#id").val() === null;
+                    },
+                    extension: "jpg|jpeg|png",
+                    filesize: 2048000
                 }
             },
             messages: {
                 title: "Judul berita wajib diisi.",
-                mission: "Deskripsi berita wajib diisi.",
                 description: "Deskripsi berita wajib diisi.",
                 category: "Kategori berita wajib diisi.",
                 image: {
                     required: "Dokumentasi berita wajib diunggah.",
-                    fileextension: "Format file harus JPG atau PNG.",
+                    extension: "Format file harus JPG, JPEG, atau PNG",
                     filesize: "Ukuran file maksimal 2MB."
                 }
             },
@@ -71,7 +80,6 @@ export default function newsController() {
             },
             unhighlight: function (element) {
                 if (isResetting) {
-                    // Saat reset, hapus semua border
                     const $el = $(element);
                     if ($el.hasClass("summernote")) {
                         $el.siblings(".note-editor").css("border", "");
@@ -80,7 +88,6 @@ export default function newsController() {
                     }
                     return;
                 }
-                // Mode normal → kasih border hijau
                 const $el = $(element);
                 if ($el.hasClass("summernote")) {
                     $el.siblings(".note-editor")
@@ -92,6 +99,7 @@ export default function newsController() {
                 }
             }
         });
+
     });
     $(document).on("click", "#addNews", function () {
         isResetting = true;
@@ -124,14 +132,34 @@ export default function newsController() {
     }
 
     $('#formNews').submit(function (e) {
+        let code = $('#description').summernote('code');
+        let cleanCode = code.replace(/<\/?p><br><\/p>/g, '').replace(/<\/?[^>]+(>|$)/g, "").trim();
+        $('#description').val(cleanCode);
         e.preventDefault();
         newsService.upsertNews(e, checkingEdit)
     })
 
     $(document).on('click', '.edit-btn', function () {
         const id = $(this).data('id');
+
+        const $form = $("#formNews");
+        $form[0].reset();
+        $form.validate().resetForm();
+
+        $("#description").each(function () {
+            $(this).summernote("code", "");
+            $(this).closest(".input-wrapper").find(".note-editor")
+                .css("border", "");
+        });
+
+        $("#image").val("");
+        $("#imageTitle").text("Upload Gambar baru");
+
+        $form.find(".border-red-500, .border-green-500").removeClass("border-red-500 border-green-500 border");
+
         newsService.getDataById(id, checkingEdit);
     });
+
 
     $(document).on('click', '.delete-btn', function () {
         const id = $(this).data('id')

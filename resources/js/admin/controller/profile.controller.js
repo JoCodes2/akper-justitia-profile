@@ -1,5 +1,6 @@
 import $ from "jquery";
 import "jquery-validation";
+import "jquery-validation/dist/additional-methods";
 import "summernote/dist/summernote-lite.css";
 import "summernote/dist/summernote-lite.js";
 
@@ -81,7 +82,7 @@ export default function profileController() {
                 history: "Sejarah wajib diisi.",
                 structure: {
                     required: "File struktur organisasi wajib diunggah.",
-                    fileextension: "Format file harus JPG atau PNG.",
+                    fileextension: "Format file harus JPG , JPEG atau PNG.",
                     filesize: "Ukuran file maksimal 2MB."
                 }
             },

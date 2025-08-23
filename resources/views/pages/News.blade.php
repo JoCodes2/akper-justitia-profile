@@ -93,7 +93,7 @@
                 </div>
             </div>
             <div class="mb-6">
-                <label class="input-label block font-semibold text-gray-700 mb-1" for="iamge" id="imageTitle">Dokumentasi Berita </label>
+                <label class="input-label block font-semibold text-gray-700 mb-1" for="image" id="imageTitle">Dokumentasi Berita </label>
                 <div class="input-wrapper">
                     <input
                         type="file"
@@ -102,7 +102,7 @@
                         class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark transition"
                     >
                 </div>
-                <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG. Maksimal 2MB.</p>
+                <p class="text-xs text-gray-500 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
             </div>
 
             <div class="control-wrapper flex justify-end gap-2 pt-4 border-t border-gray-200">
