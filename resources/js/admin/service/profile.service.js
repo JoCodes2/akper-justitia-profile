@@ -8,7 +8,7 @@ class ProfileService {
         try {
             const res = await apiGet(`${appUrl}/justitia/profile`);
             const data = Array.isArray(res.data?.data) ? res.data.data : [];
-
+            
             if (data.length > 0) {
                 const item = data[0];
 
