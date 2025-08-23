@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CMS\NewsController;
 use App\Http\Controllers\CMS\GaleriController;
+use App\Http\Controllers\CMS\LeaderController;
 use App\Http\Controllers\CMS\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,9 @@ Route::get('/cms/galery', function () {
 Route::get('/cms/news', function () {
     return view('pages.News');
 });
+Route::get('/cms/leader', function () {
+    return view('pages.Leader');
+});
 
 Route::fallback(function () {
     return view('frontend');
@@ -28,6 +32,14 @@ Route::fallback(function () {
 Route::prefix('justitia')->group(function () {
     // Routes profile
     Route::prefix('profile')->controller(ProfileController::class)->group(function () {
+        Route::get('/', 'getAllData');
+        Route::post('/create', 'createData');
+        Route::get('/get/{id}', 'getDataById');
+        Route::post('/update/{id}', 'updateData');
+        Route::delete('/delete/{id}', 'deleteData');
+    });
+    // route leader
+    Route::prefix('leader')->controller(LeaderController::class)->group(function () {
         Route::get('/', 'getAllData');
         Route::post('/create', 'createData');
         Route::get('/get/{id}', 'getDataById');

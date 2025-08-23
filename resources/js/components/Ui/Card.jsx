@@ -9,13 +9,7 @@ const Card = ({
 }) => {
     return (
         <div className="bg-white rounded-xl shadow hover:shadow-md overflow-hidden transition">
-            {image && (
-                <img
-                    src={image}
-                    alt={title}
-                    className={`w-full ${imgClass || "h-48"} object-cover`}
-                />
-            )}
+            {image && <img src={image} alt={title} className={imgClass} />}
             <div className="p-4">
                 {title && (
                     <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-1">

@@ -1,6 +1,5 @@
-// src/components/StrukturOrganisasi.jsx
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiGet } from "../../admin/helper/api";
 
 const StrukturOrganisasi = () => {
     const [strukturFile, setStrukturFile] = useState(null);
@@ -8,22 +7,25 @@ const StrukturOrganisasi = () => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        axios
-            .get("/justitia/profile/")
-            .then((res) => {
-                const data = res.data?.data?.[0];
+        const fetchStruktur = async () => {
+            try {
+                const res = await apiGet(`${appUrl}/justitia/profile`);
+                const data = res?.data?.data?.[0];
 
                 if (data && data.structure) {
                     setStrukturFile(`/uploads/profile/${data.structure}`);
                 } else {
                     setStrukturFile(null);
                 }
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.error("Error fetching struktur:", err);
                 setError(true);
-            })
-            .finally(() => setLoading(false));
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStruktur();
     }, []);
 
     return (
