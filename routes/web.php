@@ -28,7 +28,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
     Route::get('/cms/profile', function () {
         return view('pages.Profile');
-    });
+    })->middleware('role:admin');;
     Route::get('/cms/galery', function () {
         return view('pages.Galery');
     });
@@ -37,10 +37,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
     Route::get('/cms/leader', function () {
         return view('pages.Leader');
-    });
+    })->middleware('role:admin');;
     Route::get('/cms/user', function () {
         return view('pages.User');
-    });
+    })->middleware('role:admin');;
 
     // route api
     Route::prefix('justitia')->group(function () {

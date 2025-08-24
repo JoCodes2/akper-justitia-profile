@@ -34,20 +34,16 @@ class AuthService {
         showConfirmation(
             'Apakah Anda yakin ingin keluar?',
             async () => {
-                try {
-                    const response = await apiPost(`${appUrl}/justitia/logout`);
-                    const responseData = response.data;
 
-                    console.log(responseData);
+                const response = await apiPost(`${appUrl}/justitia/logout`);
+                const responseData = response.data;
 
-                    if (responseData.status === 'success') {
-                        showAlert('success', 'Logout berhasil');
-                        window.location.href = `${appUrl}/cms/login`;
-                    } else {
-                        showAlert('error', 'Terjadi kesalahan server');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
+                console.log(responseData);
+
+                if (responseData.status === 'success') {
+                    showAlert('success', 'Logout berhasil');
+                    window.location.href = `${appUrl}/cms/login`;
+                } else {
                     showAlert('error', 'Terjadi kesalahan server');
                 }
             }
