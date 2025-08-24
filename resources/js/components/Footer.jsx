@@ -184,8 +184,9 @@ const Footer = () => {
                                 &copy; {currentYear} Akademi Keperawatan
                                 Justitia.{" "}
                                 <span className="text-gray-400">
-                                    Semua Hak Dilindungi.
+                                    <span className="text-yellow-400">JoCodes</span>.V.0.0.1.
                                 </span>
+
                             </p>
                         </div>
                     </div>

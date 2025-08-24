@@ -1,32 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Ui/Card";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Slide1 from "../assets/carousel/slide1.jpeg";
 import FadeIn from "../components/Ui/FadeIn";
-
-const galeriData = [
-    {
-        image: Slide1,
-        title: "Upacara Bendera",
-        subtitle: "17 Agustus 2025",
-        description: "Peringatan Hari Kemerdekaan di Kampus.",
-    },
-    {
-        image: Slide1,
-        title: "Seminar Nasional",
-        subtitle: "12 Juli 2025",
-        description: "Seminar nasional dengan pembicara ahli di bidang hukum.",
-    },
-    {
-        image: Slide1,
-        title: "Kegiatan Bakti Sosial",
-        subtitle: "5 Juni 2025",
-        description: "Mahasiswa melakukan bakti sosial di desa sekitar kampus.",
-    },
-];
+import GaleriService from "../services/galeriService";
 
 const Galeri = () => {
+    const [galeriData, setGaleriData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchGaleriData = async () => {
+            try {
+                const data = await GaleriService.getAllGaleri();
+                setGaleriData(data.data); // Sesuaikan dengan struktur data yang diterima
+            } catch (err) {
+                setError("Gagal memuat data galeri.");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchGaleriData();
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
+
     return (
         <>
             <Navbar />
@@ -51,9 +53,9 @@ const Galeri = () => {
                                 <FadeIn key={index} delay={0.2 + index * 0.2}>
                                     <Card
                                         image={item.image}
-                                        title={item.title}
-                                        subtitle={item.subtitle}
-                                        description={item.description}
+                                        name={item.name}
+                                        date_upload={item.date_upload}
+                                        created_by={item.user?.name} // Ambil nama user dari data
                                     />
                                 </FadeIn>
                             ))}

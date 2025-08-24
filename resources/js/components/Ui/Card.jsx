@@ -1,26 +1,53 @@
 // components/Ui/Card.jsx
 const Card = ({
     image,
-    title,
-    subtitle,
-    description,
-    imgClass,
+    name,
+    date_upload,
+    created_by,
+    imgClass = "w-full h-48 object-cover",
     onDetailClick,
 }) => {
+    const imageUrl = image ? `${import.meta.env.VITE_APP_URL || 'http://localhost:8000'}/uploads/galeri/${image}` : null;
+
+    // Format tanggal jika ada
+    const formatDate = (dateString) => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
     return (
         <div className="bg-white rounded-xl shadow hover:shadow-md overflow-hidden transition">
-            {image && <img src={image} alt={title} className={imgClass} />}
+            {imageUrl && (
+                <img
+                    src={imageUrl}
+                    alt={name || 'Galeri Image'}
+                    className={imgClass}
+                    onError={(e) => {
+                        e.target.style.display = 'none';
+                    }}
+                />
+            )}
             <div className="p-4">
-                {title && (
+                {name && (
                     <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-1">
-                        {title}
+                        {name}
                     </h3>
                 )}
-                {subtitle && (
-                    <p className="text-sm text-gray-600 mb-1">{subtitle}</p>
+                {date_upload && (
+                    <p className="text-sm text-gray-600 mb-1">
+                        {formatDate(date_upload)}
+                    </p>
                 )}
-                {/* Ganti p jadi div */}
-                <div className="text-sm text-gray-500">{description}</div>
+                {created_by && (
+                    <div className="text-sm text-gray-500">
+                        Diupload oleh: {created_by}
+                    </div>
+                )}
 
                 {onDetailClick && (
                     <button
