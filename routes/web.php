@@ -25,6 +25,9 @@ Route::get('/cms/leader', function () {
 Route::get('/cms/user', function () {
     return view('pages.User');
 });
+Route::get('/cms/login', function () {
+    return view('auth.Login');
+});
 
 Route::fallback(function () {
     return view('frontend');
