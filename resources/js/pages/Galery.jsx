@@ -8,13 +8,17 @@ import GaleriService from "../services/galeriService";
 const Galeri = () => {
     const [galeriData, setGaleriData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6; // 2 rows * 3 columns
+    const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchGaleriData = async () => {
             try {
                 const data = await GaleriService.getAllGaleri();
-                setGaleriData(data.data); // Sesuaikan dengan struktur data yang diterima
+                setGaleriData(data.data);
+                setTotalPages(Math.ceil(data.data.length / itemsPerPage)); // Update total pages here
             } catch (err) {
                 setError("Gagal memuat data galeri.");
                 console.error(err);
@@ -28,6 +32,11 @@ const Galeri = () => {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
+
+    // Pagination Logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = galeriData.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <>
@@ -49,17 +58,36 @@ const Galeri = () => {
 
                     <div className="container mx-auto px-4 py-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {galeriData.map((item, index) => (
+                            {currentItems.map((item, index) => (
                                 <FadeIn key={index} delay={0.2 + index * 0.2}>
                                     <Card
                                         image={item.image}
                                         name={item.name}
                                         date_upload={item.date_upload}
-                                        created_by={item.user?.name} // Ambil nama user dari data
+                                        created_by={item.user?.name}
                                     />
                                 </FadeIn>
                             ))}
                         </div>
+                    </div>
+
+                    {/* Pagination Controls */}
+                    <div className="flex justify-center mt-4">
+                        <button
+                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-l"
+                        >
+                            Previous
+                        </button>
+                        <span className="px-4 py-2">{currentPage} / {totalPages}</span>
+                        <button
+                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-r"
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             </section>

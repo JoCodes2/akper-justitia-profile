@@ -43,8 +43,8 @@ const Navbar = () => {
                         <Link
                             to="/"
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive("/")
-                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                : "text-white hover:bg-white/10 hover:text-yellow-200"
                                 }`}
                         >
                             Beranda
@@ -54,8 +54,8 @@ const Navbar = () => {
                         <div className="relative group">
                             <button
                                 className={`px-4 py-2 rounded-md text-sm font-medium inline-flex items-center transition-colors duration-200 ${isPrefixActive("/profil")
-                                        ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                        : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
                                     }`}
                             >
                                 Profil
@@ -65,8 +65,8 @@ const Navbar = () => {
                                 <Link
                                     to="/profil/sejarah-visi-misi"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/profil/sejarah-visi-misi")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     Sejarah & Visi Misi
@@ -74,8 +74,8 @@ const Navbar = () => {
                                 <Link
                                     to="/profil/struktur-organisasi"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/profil/struktur-organisasi")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     Struktur Organisasi & Pimpinan
@@ -87,8 +87,8 @@ const Navbar = () => {
                         <div className="relative group">
                             <button
                                 className={`px-4 py-2 rounded-md text-sm font-medium inline-flex items-center transition-colors duration-200 ${isPrefixActive("/akademik")
-                                        ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                        : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
                                     }`}
                             >
                                 Akademik
@@ -98,8 +98,8 @@ const Navbar = () => {
                                 <Link
                                     to="/program-studi"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/program-studi")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     Program Studi
@@ -110,8 +110,8 @@ const Navbar = () => {
                         <Link
                             to="/fasilitas"
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isPrefixActive("/fasilitas")
-                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                : "text-white hover:bg-white/10 hover:text-yellow-200"
                                 }`}
                         >
                             Fasilitas
@@ -120,8 +120,8 @@ const Navbar = () => {
                         <Link
                             to="/galeri"
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isPrefixActive("/galeri")
-                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                : "text-white hover:bg-white/10 hover:text-yellow-200"
                                 }`}
                         >
                             Galeri
@@ -130,8 +130,8 @@ const Navbar = () => {
                         <Link
                             to="/berita"
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isPrefixActive("/berita")
-                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                : "text-white hover:bg-white/10 hover:text-yellow-200"
                                 }`}
                         >
                             Berita
@@ -141,49 +141,54 @@ const Navbar = () => {
                         <div className="relative group">
                             <button
                                 className={`px-4 py-2 rounded-md text-sm font-medium inline-flex items-center transition-colors duration-200 ${isPrefixActive("/apps")
-                                        ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                        : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
                                     }`}
                             >
                                 Apps
                                 <ChevronDown className="ml-1 h-4 w-4" />
                             </button>
                             <div className="absolute left-0 top-full mt-2 w-56 bg-white shadow-lg border border-gray-200 rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
-                                <Link
-                                    to="/apps/sister"
+                                <a
+                                    href="https://sister.kemdikbud.go.id/beranda"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/sister")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     SISTER
-                                </Link>
+                                </a>
+
+                                <a
+                                    href="https://pddikti.kemdiktisaintek.go.id/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/pddikti")
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
+                                        }`}
+                                >
+                                    PDDikti
+                                </a>
+
 
                                 <Link
                                     to="/apps/sista"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/sista")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     SISTA
                                 </Link>
 
                                 <Link
-                                    to="/apps/pddikti"
-                                    className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/pddikti")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
-                                        }`}
-                                >
-                                    PDDIKTI
-                                </Link>
-
-                                <Link
                                     to="/apps/upm"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/upm")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     UPM
@@ -192,8 +197,8 @@ const Navbar = () => {
                                 <Link
                                     to="/apps/uupm"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/uupm")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     UUPM
@@ -202,8 +207,8 @@ const Navbar = () => {
                                 <Link
                                     to="/apps/perpustakaan"
                                     className={`block px-4 py-2 text-sm hover:bg-blue-50 ${isActive("/apps/perpustakaan")
-                                            ? "text-primary font-semibold bg-blue-100"
-                                            : "text-gray-700"
+                                        ? "text-primary font-semibold bg-blue-100"
+                                        : "text-gray-700"
                                         }`}
                                 >
                                     PERPUSTAKAAN
@@ -216,8 +221,8 @@ const Navbar = () => {
                             onClick={() => scrollTo("footer", -80)}
                             href="#footer"
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isPrefixActive("/kontak")
-                                    ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
-                                    : "text-white hover:bg-white/10 hover:text-yellow-200"
+                                ? "bg-white/20 text-yellow-300 font-semibold shadow-inner"
+                                : "text-white hover:bg-white/10 hover:text-yellow-200"
                                 }`}
                         >
                             Kontak
@@ -243,8 +248,8 @@ const Navbar = () => {
                 {/* Mobile Menu Content - Diperbarui untuk lebih elegan */}
                 <div
                     className={`md:hidden transition-all duration-300 ease-in-out ${isOpen
-                            ? "max-h-screen opacity-100"
-                            : "max-h-0 opacity-0 overflow-hidden"
+                        ? "max-h-screen opacity-100"
+                        : "max-h-0 opacity-0 overflow-hidden"
                         }`}
                 >
                     <div className="bg-white p-4 border-t border-gray-200 rounded-b-md shadow-xl">
@@ -252,8 +257,8 @@ const Navbar = () => {
                             <Link
                                 to="/"
                                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isActive("/")
-                                        ? "bg-primary/15 text-primary font-semibold shadow-sm"
-                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                    ? "bg-primary/15 text-primary font-semibold shadow-sm"
+                                    : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                     }`}
                                 onClick={() => setIsOpen(false)}
                             >
@@ -267,8 +272,8 @@ const Navbar = () => {
                                         setIsProfilOpen(!isProfilOpen)
                                     }
                                     className={`flex justify-between items-center w-full px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${isPrefixActive("/profil")
-                                            ? "bg-primary/15 text-primary font-semibold"
-                                            : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                        ? "bg-primary/15 text-primary font-semibold"
+                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                         }`}
                                 >
                                     <span>Profil</span>
@@ -280,8 +285,8 @@ const Navbar = () => {
                                 </button>
                                 <div
                                     className={`transition-all duration-300 ease-in-out ${isProfilOpen
-                                            ? "max-h-32 opacity-100"
-                                            : "max-h-0 opacity-0 overflow-hidden"
+                                        ? "max-h-32 opacity-100"
+                                        : "max-h-0 opacity-0 overflow-hidden"
                                         }`}
                                 >
                                     <div className="ml-4 pl-2 border-l-2 border-primary/20 space-y-1 py-1">
@@ -290,8 +295,8 @@ const Navbar = () => {
                                             className={`block px-4 py-2 text-sm rounded-lg transition-all duration-200 ${isActive(
                                                 "/profil/sejarah-visi-misi"
                                             )
-                                                    ? "bg-primary/15 text-primary font-semibold"
-                                                    : "text-gray-600 hover:bg-blue-50 hover:text-primary"
+                                                ? "bg-primary/15 text-primary font-semibold"
+                                                : "text-gray-600 hover:bg-blue-50 hover:text-primary"
                                                 }`}
                                             onClick={() => setIsOpen(false)}
                                         >
@@ -302,8 +307,8 @@ const Navbar = () => {
                                             className={`block px-4 py-2 text-sm rounded-lg transition-all duration-200 ${isActive(
                                                 "/profil/struktur-organisasi"
                                             )
-                                                    ? "bg-primary/15 text-primary font-semibold"
-                                                    : "text-gray-600 hover:bg-blue-50 hover:text-primary"
+                                                ? "bg-primary/15 text-primary font-semibold"
+                                                : "text-gray-600 hover:bg-blue-50 hover:text-primary"
                                                 }`}
                                             onClick={() => setIsOpen(false)}
                                         >
@@ -320,8 +325,8 @@ const Navbar = () => {
                                         setIsAkademikOpen(!isAkademikOpen)
                                     }
                                     className={`flex justify-between items-center w-full px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${isPrefixActive("/akademik")
-                                            ? "bg-primary/15 text-primary font-semibold"
-                                            : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                        ? "bg-primary/15 text-primary font-semibold"
+                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                         }`}
                                 >
                                     <span>Akademik</span>
@@ -333,16 +338,16 @@ const Navbar = () => {
                                 </button>
                                 <div
                                     className={`transition-all duration-300 ease-in-out ${isAkademikOpen
-                                            ? "max-h-32 opacity-100"
-                                            : "max-h-0 opacity-0 overflow-hidden"
+                                        ? "max-h-32 opacity-100"
+                                        : "max-h-0 opacity-0 overflow-hidden"
                                         }`}
                                 >
                                     <div className="ml-4 pl-2 border-l-2 border-primary/20 space-y-1 py-1">
                                         <Link
                                             to="/program-studi"
                                             className={`block px-4 py-2 text-sm rounded-lg transition-all duration-200 ${isActive("/program-studi")
-                                                    ? "bg-primary/15 text-primary font-semibold"
-                                                    : "text-gray-600 hover:bg-blue-50 hover:text-primary"
+                                                ? "bg-primary/15 text-primary font-semibold"
+                                                : "text-gray-600 hover:bg-blue-50 hover:text-primary"
                                                 }`}
                                             onClick={() => setIsOpen(false)}
                                         >
@@ -355,8 +360,8 @@ const Navbar = () => {
                             <Link
                                 to="/fasilitas"
                                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isPrefixActive("/fasilitas")
-                                        ? "bg-primary/15 text-primary font-semibold shadow-sm"
-                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                    ? "bg-primary/15 text-primary font-semibold shadow-sm"
+                                    : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                     }`}
                                 onClick={() => setIsOpen(false)}
                             >
@@ -366,8 +371,8 @@ const Navbar = () => {
                             <Link
                                 to="/galeri"
                                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isPrefixActive("/galeri")
-                                        ? "bg-primary/15 text-primary font-semibold shadow-sm"
-                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                    ? "bg-primary/15 text-primary font-semibold shadow-sm"
+                                    : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                     }`}
                                 onClick={() => setIsOpen(false)}
                             >
@@ -377,8 +382,8 @@ const Navbar = () => {
                             <Link
                                 to="/berita"
                                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isPrefixActive("/berita")
-                                        ? "bg-primary/15 text-primary font-semibold shadow-sm"
-                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                    ? "bg-primary/15 text-primary font-semibold shadow-sm"
+                                    : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                     }`}
                                 onClick={() => setIsOpen(false)}
                             >
@@ -390,8 +395,8 @@ const Navbar = () => {
                                 <button
                                     onClick={() => setIsAppsOpen(!isAppsOpen)}
                                     className={`flex justify-between items-center w-full px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${isPrefixActive("/apps")
-                                            ? "bg-primary/15 text-primary font-semibold"
-                                            : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                        ? "bg-primary/15 text-primary font-semibold"
+                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                         }`}
                                 >
                                     <span>Apps</span>
@@ -403,16 +408,16 @@ const Navbar = () => {
                                 </button>
                                 <div
                                     className={`transition-all duration-300 ease-in-out ${isAppsOpen
-                                            ? "max-h-32 opacity-100"
-                                            : "max-h-0 opacity-0 overflow-hidden"
+                                        ? "max-h-32 opacity-100"
+                                        : "max-h-0 opacity-0 overflow-hidden"
                                         }`}
                                 >
                                     <div className="ml-4 pl-2 border-l-2 border-primary/20 space-y-1 py-1">
                                         <Link
                                             to="/apps/sister"
                                             className={`block px-4 py-2 text-sm rounded-lg transition-all duration-200 ${isActive("/apps/sister")
-                                                    ? "bg-primary/15 text-primary font-semibold"
-                                                    : "text-gray-600 hover:bg-blue-50 hover:text-primary"
+                                                ? "bg-primary/15 text-primary font-semibold"
+                                                : "text-gray-600 hover:bg-blue-50 hover:text-primary"
                                                 }`}
                                             onClick={() => setIsOpen(false)}
                                         >
@@ -425,8 +430,8 @@ const Navbar = () => {
                             <button
                                 onClick={() => scrollTo("footer", -80)}
                                 className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${isPrefixActive("/kontak")
-                                        ? "bg-primary/15 text-primary font-semibold shadow-sm"
-                                        : "text-gray-700 hover:bg-blue-50 hover:text-primary"
+                                    ? "bg-primary/15 text-primary font-semibold shadow-sm"
+                                    : "text-gray-700 hover:bg-blue-50 hover:text-primary"
                                     }`}
                             >
                                 <span className="ml-2">Kontak</span>
