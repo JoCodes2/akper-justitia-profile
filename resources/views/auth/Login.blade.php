@@ -73,7 +73,7 @@
                     <input
                         type="password"
                         id="password"
-                        name="username"
+                        name="password"
                         class="login-form-input w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:border-primary"
                         placeholder="Password"
                     >
@@ -99,5 +99,6 @@
             </div>
         </div>
     </div>
+     <div id="alert-container" class="fixed top-4 right-4 flex flex-col space-y-2"></div>
 </body>
 </html>

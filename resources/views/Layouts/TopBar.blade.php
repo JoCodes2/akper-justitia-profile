@@ -11,7 +11,7 @@
             <i class="fas fa-user text-primary"></i>
         </button>
         <div id="userDropdown" class="hidden absolute top-12 right-0 bg-white border border-gray-200 rounded shadow-md w-32 text-sm">
-            <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Logout</a>
+            <a href="#" id="userLogoutBtn" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Logout</a>
         </div>
     </div>
 </header>

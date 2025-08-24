@@ -11,6 +11,7 @@ import newsController from './controller/news.controller.js';
 import galeriController from './controller/galeri.controller.js';
 import leaderController from './controller/leader.controller.js';
 import userController from './controller/user.controller.js';
+import AuthController from './controller/auth.controller.js';
 
 
 $(function () {
@@ -20,6 +21,7 @@ $(function () {
     newsController();
     galeriController();
     userController();
+    AuthController();
 
 });
 
