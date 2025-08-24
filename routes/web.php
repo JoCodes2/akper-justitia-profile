@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CMS\NewsController;
 use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\LeaderController;
@@ -25,15 +26,20 @@ Route::get('/cms/leader', function () {
 Route::get('/cms/user', function () {
     return view('pages.User');
 });
-Route::get('/cms/login', function () {
-    return view('auth.Login');
-});
+
 
 Route::fallback(function () {
     return view('frontend');
 });
 
+Route::post('justitia/login', [AuthController::class, 'login']);
+Route::get('/cms/login', function () {
+    return view('auth.Login');
+})->name('login')->middleware('guest');
 
+Route::middleware(['auth', 'web'])->group(function () {
+    Route::post('justitia/logout', [AuthController::class, 'logout']);
+});
 
 // route api
 Route::prefix('justitia')->group(function () {
