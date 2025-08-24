@@ -6,6 +6,7 @@ use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\LeaderController;
 use App\Http\Controllers\CMS\ProfileController;
 use App\Http\Controllers\CMS\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::fallback(function () {
@@ -44,6 +45,8 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     // route api
     Route::prefix('justitia')->group(function () {
+        // dahboard
+        Route::get('/dashboard', [DashboardController::class, 'getCountData']);
         // Routes profile
         Route::prefix('profile')->controller(ProfileController::class)->group(function () {
             Route::post('/create', 'createData');

@@ -6,16 +6,9 @@ import $ from 'jquery';
 class GaleriService {
     async loadData() {
         try {
-            console.log('Mengambil data galeri dari:', `${appUrl}/justitia/galeri`);
-            const tableId = '#galeriTable'; // Definisikan tableId di sini
+            const tableId = '#galeriTable';
             const res = await apiGet(`${appUrl}/justitia/galeri`);
-            console.log('Response dari API:', res);
 
-            // Pastikan response memiliki struktur yang benar
-            if (!res.data || res.data.code !== 200) {
-                console.error('Response tidak valid:', res);
-                throw new Error('Response API tidak valid');
-            }
 
             let data = Array.isArray(res.data?.data) ? res.data.data : []; // Simpan data yang diterima
             let searchQuery = ''; // Definisikan searchQuery di sini
@@ -25,9 +18,9 @@ class GaleriService {
                 let filteredData = data.filter(item => {
                     const query = searchQuery ? searchQuery.toLowerCase() : '';
                     return (
-                         (item.name ? item.name.toLowerCase().includes(query) : false) ||
-                         (item.date_upload ? item.date_upload.toLowerCase().includes(query) : false) ||
-                         (item.created_by ? item.created_by.toLowerCase().includes(query) : false)
+                        (item.name ? item.name.toLowerCase().includes(query) : false) ||
+                        (item.date_upload ? item.date_upload.toLowerCase().includes(query) : false) ||
+                        (item.created_by ? item.created_by.toLowerCase().includes(query) : false)
                     );
                 });
 
@@ -62,7 +55,7 @@ class GaleriService {
                             <tr>
                                 <td class="px-6 py-3 text-sm text-gray-700">${start + index + 1}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${item.name}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">${item.created_by}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">${item.user.name}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${item.date_upload}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">
                                     ${item.image ? `<a href="${appUrl}/uploads/galeri/${item.image}" target="_blank" class="text-blue-500 hover:underline">${item.image}</a>` : '-'}
@@ -138,41 +131,41 @@ class GaleriService {
     }
 
     async upsertGaleri(e, checkingEdit) {
-            const submitButton = $(e.target).find(':submit');
-            submitButton.attr('disabled', true);
+        const submitButton = $(e.target).find(':submit');
+        submitButton.attr('disabled', true);
 
-            try {
-                const formData = new FormData(e.target);
-                console.log('Data yang akan dikirim:', Object.fromEntries(formData));
-                let responseData;
+        try {
+            const formData = new FormData(e.target);
+            console.log('Data yang akan dikirim:', Object.fromEntries(formData));
+            let responseData;
 
 
-                if (checkingEdit()) {
-                    const id = $('#id').val();
-                    responseData = await apiPost(`${appUrl}/justitia/galeri/update/${id}`, formData);
-                } else {
-                    responseData = await apiPost(`${appUrl}/justitia/galeri/create`, formData);
+            if (checkingEdit()) {
+                const id = $('#id').val();
+                responseData = await apiPost(`${appUrl}/justitia/galeri/update/${id}`, formData);
+            } else {
+                responseData = await apiPost(`${appUrl}/justitia/galeri/create`, formData);
 
-                }
-
-                if (responseData.data.code === 200) {
-                    showAlert('success', 'Data berhasil disimpan');
-                    $(`[data-close-modal="#upsertGaleri"]`).trigger('click');
-                    this.loadData();
-                } else {
-                    showAlert('error', 'Terjadi kesalahan server');
-                }
-
-            } catch (error) {
-                if (error.response && error.response.status === 422) {
-                    showAlert('warning', 'Periksa kembali inputan anda');
-                } else {
-                    showAlert('error', 'Terjadi kesalahan server');
-                }
-            } finally {
-                submitButton.attr('disabled', false);
             }
+
+            if (responseData.data.code === 200) {
+                showAlert('success', 'Data berhasil disimpan');
+                $(`[data-close-modal="#upsertGaleri"]`).trigger('click');
+                this.loadData();
+            } else {
+                showAlert('error', 'Terjadi kesalahan server');
+            }
+
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                showAlert('warning', 'Periksa kembali inputan anda');
+            } else {
+                showAlert('error', 'Terjadi kesalahan server');
+            }
+        } finally {
+            submitButton.attr('disabled', false);
         }
+    }
 
     async getDataById(id, checkingEdit) {
         try {

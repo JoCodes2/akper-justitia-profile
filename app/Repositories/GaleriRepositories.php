@@ -8,6 +8,7 @@ use App\Interfaces\GaleriInterfaces;
 use App\Models\GaleriModel;
 use App\Traits\HttpResponseTraits;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class GaleriRepositories implements GaleriInterfaces
 {
@@ -19,7 +20,7 @@ class GaleriRepositories implements GaleriInterfaces
     }
     public function getAllData()
     {
-        $data = $this->GaleriModel->all();
+        $data = $this->GaleriModel->with('user')->get();
         if (!$data) {
             return $this->dataNotFound();
         }
@@ -29,10 +30,11 @@ class GaleriRepositories implements GaleriInterfaces
     public function createData(GaleriRequest $request)
     {
         try {
+            $user = Auth::user();
             $data = new $this->GaleriModel;
             $data->name = $request->input('name');
             $data->date_upload = Carbon::now();
-            $data->created_by = $request->input('created_by');
+            $data->created_by = $user->id;
 
             if ($request->hasFile('image')) {
                 $fileName = FileUploadHendler::uploadFile(
@@ -60,13 +62,15 @@ class GaleriRepositories implements GaleriInterfaces
     public function updateData(GaleriRequest $request, $id)
     {
         try {
+            $user = Auth::user();
+
             $data = $this->GaleriModel->find($id);
             if (!$data) {
                 return $this->idOrDataNotFound();
             }
             $data->name = $request->input('name');
             $data->date_upload = Carbon::now();
-            $data->created_by = $request->input('created_by');
+            $data->created_by = $user->id;
 
             if ($request->hasFile('image')) {
                 // Hapus file lama jika ada

@@ -12,6 +12,7 @@ import galeriController from './controller/galeri.controller.js';
 import leaderController from './controller/leader.controller.js';
 import userController from './controller/user.controller.js';
 import AuthController from './controller/auth.controller.js';
+import dashboardController from './controller/dashboard.controller.js';
 
 
 $(function () {
@@ -22,6 +23,6 @@ $(function () {
     galeriController();
     userController();
     AuthController();
-
+    dashboardController();
 });
 
