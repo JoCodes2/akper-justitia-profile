@@ -10,6 +10,14 @@ export default function userController() {
 
 
     $(document).ready(function () {
+        // Toggle password visibility
+        $('.password-toggle').on('click', function () {
+            const target = $(this).data('target');
+            const input = $(`#${target}`);
+            const type = input.attr('type') === 'password' ? 'text' : 'password';
+            input.attr('type', type);
+            $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+        });
         $.validator.addMethod("filesize", function (value, element, param) {
             if (element.files.length === 0) return true;
             return this.optional(element) || (element.files[0].size <= param);
@@ -19,17 +27,20 @@ export default function userController() {
             rules: {
                 name: { required: true },
                 username: { required: true },
-                role: { required: true },
                 password: { required: true },
-
-
+                password_confirmation: {
+                    required: true,
+                    equalTo: "#password"
+                }
             },
             messages: {
                 name: "Form wajib diisi.",
                 username: "Form wajib diisi.",
-                role: "Form wajib diisi.",
                 password: "Form wajib diisi.",
-
+                password_confirmation: {
+                    required: "Form wajib diisi.",
+                    equalTo: "Konfirmasi password harus sama dengan password"
+                }
             },
             errorPlacement: function (error, element) {
                 error.addClass("text-red-500 text-sm mt-1");

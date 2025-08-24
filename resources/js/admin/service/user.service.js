@@ -175,8 +175,8 @@ class UserService {
             $('#id').val(data.id || '');
             $('#name').val(data.name || '');
             $('#username').val(data.username || '');
-            $('#role').val(data.role || '');
-            $('#password').val(data.password || '');
+            $('#password').val('');
+            $('#password_confirmation').val('');
 
             checkingEdit();
         } catch (error) {
