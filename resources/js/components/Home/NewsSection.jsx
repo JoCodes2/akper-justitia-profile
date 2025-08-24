@@ -31,7 +31,6 @@ const NewsSection = () => {
                 const res = await apiGet(`${appUrl}/justitia/news`);
 
                 if (res.data.code === 200) {
-                    // hanya ambil 3 berita terbaru
                     const latestNews = res.data.data
                         .sort(
                             (a, b) =>
@@ -95,7 +94,7 @@ const NewsSection = () => {
                                     </span>
                                     <span className="flex items-center">
                                         <User className="w-4 h-4 mr-1.5" />
-                                        {news.created_by ?? "Admin"}
+                                        {news.user.name}
                                     </span>
                                 </div>
                                 <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
@@ -160,7 +159,7 @@ const NewsSection = () => {
 
                             <span className="flex items-center">
                                 <User className="w-4 h-4 mr-1.5" />
-                                {selectedNews.created_by ?? "Admin"}
+                                {selectedNews.user.name}
                             </span>
                         </div>
                         <div

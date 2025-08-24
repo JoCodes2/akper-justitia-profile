@@ -83,7 +83,7 @@ class NewsService {
                                 <td class="px-6 py-3 text-sm text-gray-700">
                                     ${item.image ? `<a href="${appUrl}/uploads/news/${item.image}" target="_blank" class="text-blue-500 hover:underline">${item.image}</a>` : '-'}
                                 </td>
-                                <td class="px-6 py-3 text-sm text-gray-700">${item.created_by}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">${item.user.name}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${formattedDate}</td>
                                 <td class="px-6 py-3 text-center text-sm">
                                     <button class="text-blue-500 hover:text-blue-700 mx-1 edit-btn"  data-modal-target="#upsertNews"  data-id="${item.id}">

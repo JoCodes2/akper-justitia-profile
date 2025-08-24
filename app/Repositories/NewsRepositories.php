@@ -8,6 +8,7 @@ use App\Interfaces\NewsInterfaces;
 use App\Models\NewsModel;
 use App\Traits\HttpResponseTraits;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class NewsRepositories implements NewsInterfaces
 {
@@ -19,7 +20,7 @@ class NewsRepositories implements NewsInterfaces
     }
     public function getAllData()
     {
-        $data = $this->newsModel::all();
+        $data = $this->newsModel->with('user')->get();;
         if (!$data) {
             return $this->dataNotFound();
         }
@@ -28,10 +29,13 @@ class NewsRepositories implements NewsInterfaces
     public function createData(NewsRequest $request)
     {
         try {
+            $user = Auth::user();
             $data = new $this->newsModel;
             $data->title = $request->input('title');
             $data->description = $request->input('description');
             $data->category = $request->input('category');
+            $data->created_by = $user->id;
+
             $data->date_upload = Carbon::now('Asia/Makassar');
             if ($request->hasFile('image')) {
                 $fileName = FileUploadHendler::uploadFile(
@@ -60,6 +64,7 @@ class NewsRepositories implements NewsInterfaces
     public function updateData(NewsRequest $request, $id)
     {
         try {
+            $user = Auth::user();
             $data = $this->newsModel->find($id);
             if (!$data) {
                 return $this->idOrDataNotFound();
@@ -67,6 +72,7 @@ class NewsRepositories implements NewsInterfaces
             $data->title = $request->input('title');
             $data->description = $request->input('description');
             $data->category = $request->input('category');
+            $data->created_by = $user->id;
             $data->date_upload = Carbon::now('Asia/Makassar');
             if ($request->hasFile('image')) {
                 $fileName = FileUploadHendler::updateFile(

@@ -32,7 +32,7 @@ const News = () => {
                                 year: "numeric",
                             }
                         ),
-                        author: item.created_by ?? "Admin Kampus",
+                        author: item.user.name,
                         category:
                             item.category === "news"
                                 ? "Berita"

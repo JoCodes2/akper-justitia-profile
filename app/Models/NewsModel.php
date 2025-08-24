@@ -16,8 +16,13 @@ class NewsModel extends Model
         'description',
         'image',
         'category',
+        'date_upload',
         'created_by',
         'created_at',
         'updated_at'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 }
