@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Card from "../Ui/Card";
 import { apiGet } from "../../admin/helper/api";
 
 const LeaderPage = () => {
@@ -9,14 +8,15 @@ const LeaderPage = () => {
     useEffect(() => {
         const fetchLeaders = async () => {
             try {
-                const res = await apiGet(`${appUrl}/justitia/leader`);
-                if (res?.data?.data) {
+                const res = await apiGet(`${appUrl}/justitia/leader/`);
+
+                if (Array.isArray(res?.data?.data)) {
                     const mapped = res.data.data.map((item) => ({
                         id: item.id,
                         name: item.name,
                         nip: item.nip,
                         position: item.position,
-                        image: `/uploads/leader/${item.image}`,
+                        image: `${appUrl}/uploads/leader/${item.image}`,
                         createdAt: item.created_at,
                         updatedAt: item.updated_at,
                     }));
@@ -31,6 +31,33 @@ const LeaderPage = () => {
 
         fetchLeaders();
     }, []);
+
+    // 🔹 Card component khusus leader (local, bukan import dari luar)
+    const Card = ({ image, name, position, nip, imgClass }) => (
+        <div className="bg-white rounded-xl shadow hover:shadow-md overflow-hidden transition">
+            {image && (
+                <img
+                    src={image}
+                    alt={name}
+                    className={imgClass}
+                    onError={(e) => {
+                        e.target.style.display = "none";
+                    }}
+                />
+            )}
+            <div className="p-4">
+                {name && (
+                    <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-1">
+                        {name}
+                    </h3>
+                )}
+                {position && (
+                    <p className="text-sm text-gray-600 mb-1">{position}</p>
+                )}
+                {nip && <p className="text-sm text-gray-500">NIP: {nip}</p>}
+            </div>
+        </div>
+    );
 
     return (
         <section className="py-3 bg-gray-50">
@@ -54,9 +81,9 @@ const LeaderPage = () => {
                             <Card
                                 key={leader.id}
                                 image={leader.image}
-                                title={leader.name}
-                                subtitle={leader.position}
-                                description={`NIP: ${leader.nip}`}
+                                name={leader.name}
+                                position={leader.position}
+                                nip={leader.nip}
                                 imgClass="w-full h-60 object-contain bg-gray-100"
                             />
                         ))}

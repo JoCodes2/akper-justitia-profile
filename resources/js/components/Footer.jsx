@@ -29,32 +29,6 @@ const Footer = () => {
                         profesional, berintegritas, dan siap mengabdi kepada
                         masyarakat.
                     </p>
-                    <div className="flex space-x-4">
-                        <a
-                            href="#"
-                            className="text-gray-400 hover:text-primary transition-colors"
-                        >
-                            <i className="fab fa-facebook-f w-5 h-5"></i>
-                        </a>
-                        <a
-                            href="#"
-                            className="text-gray-400 hover:text-primary transition-colors"
-                        >
-                            <i className="fab fa-twitter w-5 h-5"></i>
-                        </a>
-                        <a
-                            href="#"
-                            className="text-gray-400 hover:text-primary transition-colors"
-                        >
-                            <i className="fab fa-instagram w-5 h-5"></i>
-                        </a>
-                        <a
-                            href="#"
-                            className="text-gray-400 hover:text-primary transition-colors"
-                        >
-                            <i className="fab fa-youtube w-5 h-5"></i>
-                        </a>
-                    </div>
                 </div>
 
                 {/* Link Cepat */}
@@ -184,9 +158,11 @@ const Footer = () => {
                                 &copy; {currentYear} Akademi Keperawatan
                                 Justitia.{" "}
                                 <span className="text-gray-400">
-                                    <span className="text-yellow-400">JoCodes</span>.V.0.0.1.
+                                    <span className="text-yellow-400">
+                                        JoCodes
+                                    </span>
+                                    .V.0.0.1.
                                 </span>
-
                             </p>
                         </div>
                     </div>
