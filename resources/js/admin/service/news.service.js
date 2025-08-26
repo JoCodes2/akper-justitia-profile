@@ -81,12 +81,12 @@ class NewsService {
                                 </td>
                                 <td class="px-6 py-3 text-sm text-gray-700 prose prose-sm">${item.description}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">
-                                    ${item.image ? `<a href="${appUrl}/uploads/news/${item.image}" target="_blank" class="text-blue-500 hover:underline">${item.image}</a>` : '-'}
+                                    ${item.image ? `<a href="${appUrl}/uploads/news/${item.image}" target="_blank" class="text-primary hover:underline">Lihat Gambar</a>` : '-'}
                                 </td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${item.user.name}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${formattedDate}</td>
                                 <td class="px-6 py-3 text-center text-sm">
-                                    <button class="text-blue-500 hover:text-blue-700 mx-1 edit-btn"  data-modal-target="#upsertNews"  data-id="${item.id}">
+                                    <button class="text-primary hover:text-primary-dark mx-1 edit-btn"  data-modal-target="#upsertNews"  data-id="${item.id}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="text-red-500 hover:text-red-700 mx-1 delete-btn" data-id="${item.id}">

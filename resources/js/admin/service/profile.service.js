@@ -8,14 +8,14 @@ class ProfileService {
         try {
             const res = await apiGet(`${appUrl}/justitia/profile`);
             const data = Array.isArray(res.data?.data) ? res.data.data : [];
-            
+
             if (data.length > 0) {
                 const item = data[0];
 
                 $('#profileVision').html(item.vision || '-');
                 $('#profileMission').html(item.mission || '-');
-                $('#profileVision2').html(item.vision || '-');
-                $('#profileMission2').html(item.mission || '-');
+                $('#profileVision2').html(item.vision2 || '-');
+                $('#profileMission2').html(item.mission2 || '-');
                 $('#profileHistory').html(item.history || '-');
 
                 if (item.structure) {

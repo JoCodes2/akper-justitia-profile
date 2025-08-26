@@ -64,7 +64,7 @@ class UserService {
 
 
                                 <td class="px-6 py-3 text-center text-sm">
-                                    <button class="text-blue-500 hover:text-blue-700 mx-1 edit-user"  data-modal-target="#upsertUser"  data-id="${item.id}">
+                                    <button class="text-primary hover:text-primary-dark mx-1 edit-user"  data-modal-target="#upsertUser"  data-id="${item.id}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="text-red-500 hover:text-red-700 mx-1 delete-user" data-id="${item.id}">

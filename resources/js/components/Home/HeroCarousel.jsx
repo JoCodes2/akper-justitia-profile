@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import heroSlide1 from "../../assets/carousel/slide1.jpeg";
-import heroSlide2 from "../../assets/carousel/slide2.jpg";
-import heroSlide3 from "../../assets/carousel/slide3.png";
+import heroSlide1 from "../../assets/slide1.jpg";
+import heroSlide2 from "../../assets/slide2.jpg";
+import heroSlide3 from "../../assets/slide3.jpg";
 
 const HeroCarousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);

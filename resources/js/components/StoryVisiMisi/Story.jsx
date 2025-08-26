@@ -1,7 +1,7 @@
 // src/pages/SejarahPage.jsx
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Slide1 from "../../assets/carousel/slide1.jpeg";
+import Slide1 from "../../assets/story.jpg";
 
 const StoryPage = () => {
     const [history, setHistory] = useState("");

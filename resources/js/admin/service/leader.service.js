@@ -57,7 +57,7 @@ class LeaderService {
                                 <td class="px-6 py-3 text-sm text-gray-700">${item.position}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${item.nip}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">
-                                    ${item.image ? `<a href="${appUrl}/uploads/leader/${item.image}" target="_blank" class="text-blue-500 hover:underline">${item.image}</a>` : '-'}
+                                    ${item.image ? `<a href="${appUrl}/uploads/leader/${item.image}" target="_blank" class="text-primary hover:underline">Lihat Gambar</a>` : '-'}
                                 </td>
                                 <td class="px-6 py-3 text-center text-sm">
                                     <button class="text-blue-500 hover:text-blue-700 mx-1 edit-leader"  data-modal-target="#upsertLeader"  data-id="${item.id}">

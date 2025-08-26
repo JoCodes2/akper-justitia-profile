@@ -94,19 +94,19 @@ const Footer = () => {
                         <li className="flex items-start">
                             <i className="fas fa-envelope w-5 h-5 mr-3 mt-0.5 text-primary flex-shrink-0"></i>
                             <a
-                                href="mailto:info@akperjustitia.ac.id"
+                                href="mailto:Akperjustitia@gmail.com"
                                 className="text-gray-400 hover:text-primary transition-colors"
                             >
-                                info@akperjustitia.ac.id
+                                Akperjustitia@gmail.com
                             </a>
                         </li>
                         <li className="flex items-start">
                             <i className="fas fa-phone w-5 h-5 mr-3 mt-0.5 text-primary flex-shrink-0"></i>
                             <a
-                                href="tel:+6281234567890"
+                                href="tel:+6285298845213"
                                 className="text-gray-400 hover:text-primary transition-colors"
                             >
-                                +62 812-3456-7890
+                                +62 852-9884-5213
                             </a>
                         </li>
                         <li className="flex items-start">

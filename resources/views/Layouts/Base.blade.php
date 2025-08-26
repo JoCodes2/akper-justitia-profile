@@ -38,7 +38,7 @@
             <footer class="bg-gray-900 text-gray-300 text-xs px-6 py-3 flex justify-between items-center select-none mt-auto">
                 <p>© {{ date('Y') }} Akademi Keperawatan Justitia. By JoCodes.</p>
                 <nav class="flex gap-4">
-                    <a href="#" class="hover:text-white">Version 1.0.0</a>
+                    <a href="#" class="hover:text-white">Version 0.0.1</a>
                     <span>•</span>
                     <a href="#" class="hover:text-white">Support</a>
                     <span>•</span>
