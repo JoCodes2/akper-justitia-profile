@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CMS\NewsController;
 use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\LeaderController;
+use App\Http\Controllers\CMS\ProdiController;
 use App\Http\Controllers\CMS\ProfileController;
 use App\Http\Controllers\CMS\UserController;
 use App\Http\Controllers\DashboardController;
@@ -18,6 +19,16 @@ Route::get('justitia/profile/', [ProfileController::class, 'getAllData']);
 Route::get('justitia/leader/', [LeaderController::class, 'getAllData']);
 Route::get('justitia/news/', [NewsController::class, 'getAllData']);
 Route::get('justitia/galeri/', [GaleriController::class, 'getAllData']);
+
+// Routes prodi (accessible without authentication for testing)
+Route::prefix('justitia/prodi')->controller(ProdiController::class)->group(function () {
+    Route::get('/', 'getAllData');
+    Route::post('/create', 'createData');
+    Route::get('/get/{id}', 'getDataById');
+    Route::post('/update/{id}', 'updateData');
+    Route::delete('/delete/{id}', 'deleteData');
+});
+
 
 Route::get('/cms/login', function () {
     return view('auth.Login');
@@ -41,6 +52,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     })->middleware('role:admin');;
     Route::get('/cms/user', function () {
         return view('pages.User');
+    })->middleware('role:admin');;
+
+    Route::get('/cms/prodi', function () {
+        return view('pages.Prodi');
     })->middleware('role:admin');;
 
     // route api
@@ -76,7 +91,7 @@ Route::middleware(['auth', 'web'])->group(function () {
             Route::delete('/delete/{id}', 'deleteData');
         });
 
-        // Routes galeri
+        // Routes user
         Route::prefix('user')->controller(UserController::class)->group(function () {
             Route::get('/', 'getAllData');
             Route::post('/create', 'createData');
@@ -84,6 +99,7 @@ Route::middleware(['auth', 'web'])->group(function () {
             Route::post('/update/{id}', 'updateData');
             Route::delete('/delete/{id}', 'deleteData');
         });
+
     });
     Route::post('justitia/logout', [AuthController::class, 'logout']);
 });
