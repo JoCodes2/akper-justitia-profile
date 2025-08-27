@@ -19,15 +19,10 @@ Route::get('justitia/profile/', [ProfileController::class, 'getAllData']);
 Route::get('justitia/leader/', [LeaderController::class, 'getAllData']);
 Route::get('justitia/news/', [NewsController::class, 'getAllData']);
 Route::get('justitia/galeri/', [GaleriController::class, 'getAllData']);
+Route::get('justitia/prodi/', [ProdiController::class, 'getAllData']);
 
-// Routes prodi (accessible without authentication for testing)
-Route::prefix('justitia/prodi')->controller(ProdiController::class)->group(function () {
-    Route::get('/', 'getAllData');
-    Route::post('/create', 'createData');
-    Route::get('/get/{id}', 'getDataById');
-    Route::post('/update/{id}', 'updateData');
-    Route::delete('/delete/{id}', 'deleteData');
-});
+
+
 
 
 Route::get('/cms/login', function () {
@@ -100,6 +95,14 @@ Route::middleware(['auth', 'web'])->group(function () {
             Route::delete('/delete/{id}', 'deleteData');
         });
 
+        // Routes user
+        Route::prefix('prodi')->controller(ProdiController::class)->group(function () {
+            Route::get('/', 'getAllData');
+            Route::post('/create', 'createData');
+            Route::get('/get/{id}', 'getDataById');
+            Route::post('/update/{id}', 'updateData');
+            Route::delete('/delete/{id}', 'deleteData');
+        });
     });
     Route::post('justitia/logout', [AuthController::class, 'logout']);
 });
