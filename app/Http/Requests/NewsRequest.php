@@ -24,6 +24,7 @@ class NewsRequest extends FormRequest
             'title'    => 'required',
             'description'   => 'required',
             'category'   => 'required',
+            'date_upload' => 'required|date',
             'image' => [
                 $isCreateRoute ? 'required' : 'nullable',
                 'mimes:jpeg,png,jpg,gif,svg',

@@ -33,7 +33,7 @@ class GaleriRepositories implements GaleriInterfaces
             $user = Auth::user();
             $data = new $this->GaleriModel;
             $data->name = $request->input('name');
-            $data->date_upload = Carbon::now();
+            $data->date_upload = $request->input('date_upload');
             $data->created_by = $user->id;
 
             if ($request->hasFile('image')) {
