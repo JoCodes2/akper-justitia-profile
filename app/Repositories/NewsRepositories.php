@@ -36,7 +36,7 @@ class NewsRepositories implements NewsInterfaces
             $data->category = $request->input('category');
             $data->created_by = $user->id;
 
-            $data->date_upload = Carbon::now('Asia/Makassar');
+            $data->date_upload = $request->input('date_upload');
             if ($request->hasFile('image')) {
                 $fileName = FileUploadHendler::uploadFile(
                     $request->file('image'),
@@ -73,7 +73,7 @@ class NewsRepositories implements NewsInterfaces
             $data->description = $request->input('description');
             $data->category = $request->input('category');
             $data->created_by = $user->id;
-            $data->date_upload = Carbon::now('Asia/Makassar');
+            $data->date_upload = $request->input('date_upload');
             if ($request->hasFile('image')) {
                 $fileName = FileUploadHendler::updateFile(
                     $request->file('image'),

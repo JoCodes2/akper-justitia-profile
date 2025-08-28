@@ -19,6 +19,7 @@ class GaleriRequest extends FormRequest
 
         return [
             'name'    => 'required',
+            'date_upload' => 'required|date',
             'image' => [
                 $isCreateRoute ? 'required' : 'nullable',
                 'mimes:jpeg,png,jpg,gif,svg',

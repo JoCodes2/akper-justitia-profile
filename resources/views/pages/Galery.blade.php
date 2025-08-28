@@ -34,8 +34,8 @@
         </x-base-body>
 
         <x-base-modal modalId="upsertGaleri" modalTitle="Form Data Galeri" size="5xl" position="top">
-            <form id="formGaleri" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate" action="javascript:void(0);"
-                class="space-y-5">
+            <form id="formGaleri" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate"
+                action="javascript:void(0);" class="space-y-5">
                 @csrf
                 <input type="hidden" id="id" name="id">
 
@@ -58,6 +58,17 @@
                             class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark transition">
                     </div>
                     <p class="text-xs text-gray-500 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
+                </div>
+
+                <div class="mb-6">
+                    <div class="control-wrapper">
+                        <label class="input-label block font-semibold text-gray-700 mb-1" for="date_upload">Tanggal
+                            Unggah</label>
+                        <div class="input-wrapper">
+                            <input type="date" id="date_upload" name="date_upload" required
+                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary px-3 py-2 transition-colors">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="control-wrapper flex justify-end gap-2 pt-4 border-t border-gray-200">

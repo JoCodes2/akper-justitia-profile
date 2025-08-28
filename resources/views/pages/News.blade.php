@@ -105,7 +105,17 @@
                 <p class="text-xs text-gray-500 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
             </div>
 
-            <div class="control-wrapper flex justify-end gap-2 pt-4 border-t border-gray-200">
+                <div class="mb-6">
+                    <div class="control-wrapper">
+                        <label class="input-label block font-semibold text-gray-700 mb-1" for="date_upload">Tanggal Diuanggah</label>
+                        <div class="input-wrapper">
+                            <input type="date" id="date_upload" name="date_upload" required
+                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary px-3 py-2 transition-colors">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-wrapper flex justify-end gap-2 pt-4 border-t border-gray-200">
                 <button type="button" data-close-modal="#upsertNews" class="bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm px-5 py-2 rounded-lg shadow-sm transition">
                     Batal
                 </button>

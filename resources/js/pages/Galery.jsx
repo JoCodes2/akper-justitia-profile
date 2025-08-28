@@ -9,9 +9,21 @@ const Galeri = () => {
     const [galeriData, setGaleriData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [showDetailModal, setShowDetailModal] = useState(false);
     const itemsPerPage = 6; // 2 rows * 3 columns
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
+
+    const handleDetailClick = (item) => {
+        setSelectedItem(item);
+        setShowDetailModal(true);
+    };
+
+    const closeDetailModal = () => {
+        setShowDetailModal(false);
+        setSelectedItem(null);
+    };
 
     useEffect(() => {
         const fetchGaleriData = async () => {
@@ -33,6 +45,17 @@ const Galeri = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
+    // Format tanggal
+    const formatDate = (dateString) => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
     // Pagination Logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -40,6 +63,39 @@ const Galeri = () => {
 
     return (
         <>
+            {/* Modal Detail */}
+            {showDetailModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    {/* Backdrop */}
+                    <div className="fixed inset-0 bg-black bg-opacity-50" onClick={closeDetailModal}></div>
+                    <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl w-full mx-4 z-50">
+                        <h2 className="text-2xl font-bold mb-4 text-gray-800">{selectedItem?.name}</h2>
+                        <div className="space-y-3 mb-6">
+                            <p className="text-sm text-gray-600">
+                                <span className="font-semibold">Tanggal:</span> {formatDate(selectedItem?.date_upload)}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                                <span className="font-semibold">Diupload oleh:</span> {selectedItem?.user?.name || 'Tidak diketahui'}
+                            </p>
+                        </div>
+                        {selectedItem?.image && (
+                            <div className="mb-6">
+                                <img
+                                    src={`${import.meta.env.VITE_APP_URL || 'http://localhost:8000'}/uploads/galeri/${selectedItem.image}`}
+                                    alt={selectedItem.name}
+                                    className="w-full h-auto max-h-80 object-cover rounded-lg shadow-md"
+                                />
+                            </div>
+                        )}
+                        <button
+                            onClick={closeDetailModal}
+                            className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                        >
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+            )}
             <Navbar />
             <section className="py-8 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,6 +121,7 @@ const Galeri = () => {
                                         name={item.name}
                                         date_upload={item.date_upload}
                                         created_by={item.user?.name}
+                                        onDetailClick={() => handleDetailClick(item)}
                                     />
                                 </FadeIn>
                             ))}
