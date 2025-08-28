@@ -35,7 +35,7 @@
         </x-base-body>
 
         <x-base-modal modalId="upsertProdi" modalTitle="Form Data Prodi" size="5xl" position="top">
-            <form id="formUser" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate"
+            <form id="formProdi" method="POST" enctype="multipart/form-data" autocomplete="off" novalidate="novalidate"
                 action="javascript:void(0);" class="space-y-5">
                 @csrf
                 <input type="hidden" id="id" name="id">
@@ -64,7 +64,7 @@
                         <label class="input-label block font-semibold text-gray-700 mb-1" for="accreditation">Akreditas
                         </label>
                         <div class="input-wrapper ">
-                            <input type="text" id="accreditation" name="accreditation" placeholder="Masukkan jenjang"
+                            <input type="text" id="accreditation" name="accreditation" placeholder="Masukkan akreditasi"
                                 required
                                 class="block w-full text-sm text-gray-700 border  border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary px-3 py-2 transition-colors">
                         </div>
@@ -75,13 +75,12 @@
                         <label class="input-label block font-semibold text-gray-700 mb-1" for="description">Deskripsi
                         </label>
                         <div class="input-wrapper ">
-                            <input type="text" id="description" name="description" placeholder="Masukkan jenjang"
-                                required
-                                class="block w-full text-sm text-gray-700 border  border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary px-3 py-2 transition-colors">
+                            <!-- Ganti input dengan textarea untuk summernote -->
+                            <textarea id="description" name="description" placeholder="Masukkan deskripsi"
+                                class="summernote block w-full text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary px-3 py-2 transition-colors"></textarea>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="control-wrapper flex justify-end gap-2 pt-4 border-t border-gray-200">
                     <button type="button" data-close-modal="#upsertProdi"
