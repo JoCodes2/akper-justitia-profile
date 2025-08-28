@@ -5,7 +5,6 @@ import "summernote/dist/summernote-lite.css";
 import "summernote/dist/summernote-lite.js";
 import prodiService from "../service/prodi.service";
 
-console.log('Prodi Controller loaded');
 
 export default function prodiController() {
     prodiService.loadData();
@@ -135,19 +134,13 @@ export default function prodiController() {
     });
 
     // Event untuk edit button
-    $(document).on('click', '.edit-btn', function (e) {
-        e.preventDefault();
-
-        // Pastikan kita berada di halaman prodi dengan memeriksa apakah form prodi ada
+    $(document).on('click', '.edit-btn-prodi', function () {
         const $form = $("#formProdi");
         if ($form.length === 0) {
-            return; // Keluar jika form prodi tidak ditemukan (berarti kita di halaman lain)
+            return;
         }
 
         const id = $(this).data('id');
-        console.log('Edit clicked with ID:', id);
-
-        // Reset form biar bersih
         $form[0].reset();
         if ($.fn.validate) {
             $form.validate().resetForm();
@@ -158,13 +151,11 @@ export default function prodiController() {
 
         $('#description').summernote('code', '');
 
-        // 👉 Panggil service untuk ambil & isi data
         prodiService.getDataById(id, checkingEdit);
     });
 
 
 
-    // Event untuk delete button
     $(document).on('click', '.delete-btn', function (e) {
         e.preventDefault();
         const id = $(this).data('id');

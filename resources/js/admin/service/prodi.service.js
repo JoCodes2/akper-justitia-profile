@@ -56,7 +56,7 @@ class ProdiService {
                     pageData.forEach((item, index) => {
 
                         // Di bagian render table, pastikan class button benar
-                    const row = `
+                        const row = `
                         <tr>
                             <td class="px-6 py-3 text-sm text-gray-700">${start + index + 1}</td>
                             <td class="px-6 py-3 text-sm text-gray-700">${item.name}</td>
@@ -64,7 +64,7 @@ class ProdiService {
                             <td class="px-6 py-3 text-sm text-gray-700">${item.accreditation}</td>
                             <td class="px-6 py-3 text-sm text-gray-700">${item.description ? item.description.substring(0, 100) + '...' : '-'}</td>
                             <td class="px-6 py-3 text-center text-sm">
-                                <button class="text-primary hover:text-primary-dark mx-1 edit-btn"  data-modal-target="#upsertProdi"  data-id="${item.id}">
+                                <button class="text-primary hover:text-primary-dark mx-1 edit-btn-prodi"  data-modal-target="#upsertProdi"  data-id="${item.id}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="text-red-500 hover:text-red-700 mx-1 delete-btn" data-id="${item.id}">
@@ -136,7 +136,6 @@ class ProdiService {
 
         try {
             const formData = new FormData(e.target);
-            console.log('Data yang akan dikirim:', Object.fromEntries(formData));
             let responseData;
 
             if (checkingEdit()) {
@@ -167,29 +166,24 @@ class ProdiService {
 
     async getDataById(id, checkingEdit) {
         try {
-            console.log('Mengambil data untuk ID:', id);
             const res = await apiGet(`${appUrl}/justitia/prodi/get/${id}`);
-            console.log('Data yang diterima:', data);
 
             if (res.data && res.data.code === 200) {
                 const data = res.data.data || {};
-                console.log('Data yang diterima:', data);
 
                 // Isi form dengan data sesuai ID di Blade
                 $('#id').val(data.id || '');
-                $('#name').val(data.nama_prodi || '');   // ganti name -> nama_prodi
-                $('#level').val(data.jenjang || '');     // ganti level -> jenjang
-                $('#accreditation').val(data.akreditasi || ''); // ganti accreditation -> akreditasi
+                $('#name').val(data.name || '');   // ganti name -> nama_prodi
+                $('#level').val(data.level || '');     // ganti level -> jenjang
+                $('#accreditation').val(data.accreditation || ''); // ganti accreditation -> akreditasi
 
                 // Deskripsi via Summernote
                 if ($('#description').data('summernote')) {
-                    $('#description').summernote('code', data.deskripsi || '');
+                    $('#description').summernote('code', data.description || '');
                 } else {
-                    $('#description').val(data.deskripsi || '');
+                    $('#description').val(data.description || '');
                 }
 
-
-                console.log('Form berhasil diisi dengan data');
 
                 // Jalankan flag edit
                 if (typeof checkingEdit === 'function') {
@@ -201,15 +195,12 @@ class ProdiService {
                 if (modal) {
                     modal.classList.remove('hidden');
                     modal.classList.add('flex');
-                    console.log('Modal dibuka');
                 }
 
             } else {
-                console.error('Response tidak valid:', res.data);
                 showAlert('error', 'Gagal mengambil data');
             }
         } catch (error) {
-            console.error('Error mengambil data:', error);
             showAlert('error', 'Terjadi kesalahan saat mengambil data');
         }
     }

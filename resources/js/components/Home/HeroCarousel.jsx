@@ -3,28 +3,42 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroSlide1 from "../../assets/slide1.jpg";
 import heroSlide2 from "../../assets/slide2.jpg";
 import heroSlide3 from "../../assets/slide3.jpg";
+import heroSlide4 from "../../assets/slide4.jpg";
+import heroSlide5 from "../../assets/slide5.jpg";
 
 const HeroCarousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const slides = [
         {
-            image: heroSlide1,
+            image: heroSlide4,
             title: "Kampus Ramah dan Nyaman",
             subtitle:
                 "Mendukung suasana belajar yang kondusif dan penuh kekeluargaan",
         },
         {
-            image: heroSlide2,
+            image: heroSlide3,
             title: "Pendidikan Keperawatan Berkualitas",
             subtitle:
                 "Didukung tenaga pendidik profesional dan kurikulum relevan",
         },
         {
-            image: heroSlide3,
+            image: heroSlide5,
             title: "Siap Berkarier di Dunia Kesehatan",
             subtitle:
                 "Membuka peluang kerja dan pengabdian di berbagai fasilitas kesehatan",
+        },
+        {
+            image: heroSlide3,
+            title: "Meraih Prestasi Bersama",
+            subtitle:
+                "Wisuda sebagai langkah menuju pengabdian dan karier di bidang kesehatan",
+        },
+        {
+            image: heroSlide2,
+            title: "Komunitas Mahasiswa Aktif",
+            subtitle:
+                "Berkembang melalui organisasi, kegiatan sosial, dan pengabdian masyarakat",
         },
     ];
 
