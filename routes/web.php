@@ -95,7 +95,6 @@ Route::middleware(['auth', 'web'])->group(function () {
             Route::delete('/delete/{id}', 'deleteData');
         });
 
-        // Routes user
         Route::prefix('prodi')->controller(ProdiController::class)->group(function () {
             Route::get('/', 'getAllData');
             Route::post('/create', 'createData');

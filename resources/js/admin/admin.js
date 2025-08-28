@@ -13,6 +13,8 @@ import leaderController from './controller/leader.controller.js';
 import userController from './controller/user.controller.js';
 import AuthController from './controller/auth.controller.js';
 import dashboardController from './controller/dashboard.controller.js';
+import prodiController from './controller/prodi.controller.js';
+
 
 
 $(function () {
@@ -24,5 +26,6 @@ $(function () {
     userController();
     AuthController();
     dashboardController();
+    prodiController();
 });
 

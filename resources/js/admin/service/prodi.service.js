@@ -2,27 +2,29 @@ import { showAlert, showConfirmation } from '../helper/alert';
 import { apiGet, apiPost, apiDelete } from '../helper/api';
 import $ from 'jquery';
 
-class UserService {
+class ProdiService {
     async loadData() {
         try {
-            const tableId = '#userTable'; // Definisikan tableId di sini
-            const res = await apiGet(`${appUrl}/justitia/user`);
+            const tableId = '#prodiTable'; // Definisikan tableId di sini
+            const res = await apiGet(`${appUrl}/justitia/prodi`);
 
             // Pastikan response memiliki struktur yang benar
             if (!res.data || res.data.code !== 200) {
                 throw new Error('Response API tidak valid');
             }
 
-            let data = Array.isArray(res.data?.data) ? res.data.data : []; // Simpan data yang diterima
-            let searchQuery = ''; // Definisikan searchQuery di sini
-            let perPage = 10; // Definisikan perPage di sini
-            let currentPage = 1; // Definisikan currentPage di sini
+            let data = Array.isArray(res.data?.data) ? res.data.data : [];
+            let searchQuery = '';
+            let perPage = 10;
+            let currentPage = 1;
             const renderTable = () => {
                 let filteredData = data.filter(item => {
                     const query = searchQuery ? searchQuery.toLowerCase() : '';
                     return (
                         (item.name ? item.name.toLowerCase().includes(query) : false) ||
-                        (item.username ? item.username.toLowerCase().includes(query) : false)
+                        (item.level ? item.level.toLowerCase().includes(query) : false) ||
+                        (item.accreditation ? item.accreditation.toLowerCase().includes(query) : false) ||
+                        (item.description ? item.description.toLowerCase().includes(query) : false)
                     );
                 });
 
@@ -53,28 +55,24 @@ class UserService {
                 } else {
                     pageData.forEach((item, index) => {
 
-                        const row = `
-                            <tr>
-                                <td class="px-6 py-3 text-sm text-gray-700">${start + index + 1}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">${item.name}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">${item.username}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">${item.role}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">
-                                    ${item.password ? '*'.repeat(item.password.length) : '****'}
-                                </td>
-
-
-
-                                <td class="px-6 py-3 text-center text-sm">
-                                    <button class="text-primary hover:text-primary-dark mx-1 edit-user"  data-modal-target="#upsertUser"  data-id="${item.id}">
+                        // Di bagian render table, pastikan class button benar
+                    const row = `
+                        <tr>
+                            <td class="px-6 py-3 text-sm text-gray-700">${start + index + 1}</td>
+                            <td class="px-6 py-3 text-sm text-gray-700">${item.name}</td>
+                            <td class="px-6 py-3 text-sm text-gray-700">${item.level}</td>
+                            <td class="px-6 py-3 text-sm text-gray-700">${item.accreditation}</td>
+                            <td class="px-6 py-3 text-sm text-gray-700">${item.description ? item.description.substring(0, 100) + '...' : '-'}</td>
+                            <td class="px-6 py-3 text-center text-sm">
+                                <button class="text-primary hover:text-primary-dark mx-1 edit-btn"  data-modal-target="#upsertProdi"  data-id="${item.id}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-700 mx-1 delete-user" data-id="${item.id}">
+                                    <button class="text-red-500 hover:text-red-700 mx-1 delete-btn" data-id="${item.id}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-                                </td>
-                            </tr>
-                        `;
+                            </td>
+                        </tr>
+                    `;
                         $tbody.append(row);
                     });
                 }
@@ -132,7 +130,7 @@ class UserService {
         }
     }
 
-    async upsertUser(e, checkingEdit) {
+    async upsertProdi(e, checkingEdit) {
         const submitButton = $(e.target).find(':submit');
         submitButton.attr('disabled', true);
 
@@ -143,14 +141,14 @@ class UserService {
 
             if (checkingEdit()) {
                 const id = $('#id').val();
-                responseData = await apiPost(`${appUrl}/justitia/user/update/${id}`, formData);
+                responseData = await apiPost(`${appUrl}/justitia/prodi/update/${id}`, formData);
             } else {
-                responseData = await apiPost(`${appUrl}/justitia/user/create`, formData);
+                responseData = await apiPost(`${appUrl}/justitia/prodi/create`, formData);
             }
 
             if (responseData.data.code === 200) {
                 showAlert('success', 'Data berhasil disimpan');
-                $(`[data-close-modal="#upsertUser"]`).trigger('click');
+                $(`[data-close-modal="#upsertProdi"]`).trigger('click');
                 this.loadData();
             } else {
                 showAlert('error', 'Terjadi kesalahan server');
@@ -169,26 +167,60 @@ class UserService {
 
     async getDataById(id, checkingEdit) {
         try {
-            const res = await apiGet(`${appUrl}/justitia/user/get/${id}`);
-            const data = res.data?.data || {};
-            $('#id').val(data.id || '');
-            $('#name').val(data.name || '');
-            $('#username').val(data.username || '');
-            $('#password').val('');
-            $('#password_confirmation').val('');
+            console.log('Mengambil data untuk ID:', id);
+            const res = await apiGet(`${appUrl}/justitia/prodi/get/${id}`);
+            console.log('Data yang diterima:', data);
 
-            checkingEdit();
+            if (res.data && res.data.code === 200) {
+                const data = res.data.data || {};
+                console.log('Data yang diterima:', data);
+
+                // Isi form dengan data sesuai ID di Blade
+                $('#id').val(data.id || '');
+                $('#name').val(data.nama_prodi || '');   // ganti name -> nama_prodi
+                $('#level').val(data.jenjang || '');     // ganti level -> jenjang
+                $('#accreditation').val(data.akreditasi || ''); // ganti accreditation -> akreditasi
+
+                // Deskripsi via Summernote
+                if ($('#description').data('summernote')) {
+                    $('#description').summernote('code', data.deskripsi || '');
+                } else {
+                    $('#description').val(data.deskripsi || '');
+                }
+
+
+                console.log('Form berhasil diisi dengan data');
+
+                // Jalankan flag edit
+                if (typeof checkingEdit === 'function') {
+                    checkingEdit();
+                }
+
+                // 👉 Buka modal setelah data terisi
+                const modal = document.getElementById('upsertProdi');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    console.log('Modal dibuka');
+                }
+
+            } else {
+                console.error('Response tidak valid:', res.data);
+                showAlert('error', 'Gagal mengambil data');
+            }
         } catch (error) {
-            console.error(error);
+            console.error('Error mengambil data:', error);
+            showAlert('error', 'Terjadi kesalahan saat mengambil data');
         }
     }
+
 
     async deleteData(id) {
         showConfirmation(
             'Apakah Anda yakin ingin menghapus data ini?',
             async () => {
                 try {
-                    const response = await axios.delete(`${appUrl}/justitia/user/delete/${id}`);
+                    const response = await axios.delete(`${appUrl}/justitia/prodi/delete/${id}`);
                     const responseData = response.data;
 
                     if (responseData.code === 200) {
@@ -208,4 +240,4 @@ class UserService {
 
 }
 
-export default new UserService();
+export default new ProdiService();
