@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/index.jsx',
 
                 'resources/css/index.css',
+                'resources/css/login.css',
                 'resources/js/admin/admin.js',
             ],
             refresh: true,
