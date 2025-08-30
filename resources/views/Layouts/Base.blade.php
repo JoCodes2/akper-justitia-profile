@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Akademi Keperawatan Justitia</title>
-    <link rel="shortcut icon" href="{{ asset('assets/image/logo-universitas.jpeg') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/image/logo-universitas.png') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>

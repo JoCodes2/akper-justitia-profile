@@ -9,7 +9,7 @@
     <title>Akademi Keperawatan Justitia Palu - Pendidikan Keperawatan Berkualitas</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/image/logo-universitas.jpeg') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/image/logo-universitas.png') }}">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:title" content="Akademi Keperawatan Justitia Palu">
     <meta property="og:description" content="Kampus keperawatan dengan kurikulum relevan, tenaga pendidik profesional, dan fasilitas modern.">
-    <meta property="og:image" content="{{ asset('assets/image/logo-universitas.jpeg') }}">
+    <meta property="og:image" content="{{ asset('assets/image/logo-universitas.png') }}">
     <meta property="og:url" content="https://akperjustitia.ac.id">
     <meta property="og:type" content="website">
 
@@ -37,7 +37,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Akademi Keperawatan Justitia Palu">
     <meta name="twitter:description" content="Pendidikan keperawatan profesional untuk mencetak tenaga kesehatan berkualitas.">
-    <meta name="twitter:image" content="{{ asset('assets/image/logo-universitas.jpeg') }}">
+    <meta name="twitter:image" content="{{ asset('assets/image/logo-universitas.png') }}">
 
     <!-- Structured Data (Schema.org JSON-LD) -->
     <script type="application/ld+json">
@@ -47,17 +47,13 @@
       "name": "Akademi Keperawatan Justitia Palu",
       "alternateName": "Akper Justitia",
       "url": "https://akperjustitia.ac.id",
-      "logo": "{{ asset('assets/image/logo-universitas.jpeg') }}",
-      "sameAs": [
-        "https://facebook.com/akperjustitia",
-        "https://instagram.com/akperjustitia"
-      ],
+      "logo": "{{ asset('assets/image/logo-universitas.png') }}",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Jl. Contoh No. 123",
+        "streetAddress": "Jl. Jln. Uwe Lambori, Tondo, Kec. Mantikulore",
         "addressLocality": "Palu",
         "addressRegion": "Sulawesi Tengah",
-        "postalCode": "94111",
+        "postalCode": "94148",
         "addressCountry": "ID"
       }
     }
