@@ -4,7 +4,7 @@
 transform -translate-x-full md:translate-x-0 fixed md:static inset-y-0 left-0 z-50 transition-transform duration-300">
     <div class="flex items-center gap-3 mb-10 ">
         <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-            <img src="{{ asset('assets/image/logo-universitas.jpeg') }}" alt="Logo"
+            <img src="{{ asset('assets/image/logo-universitas.png') }}" alt="Logo"
                 class="w-8 h-8 object-cover rounded-full">
         </div>
         <span class="font-heading font-bold text-base leading-5">AKPER Justitia</span>

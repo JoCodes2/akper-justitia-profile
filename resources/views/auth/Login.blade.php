@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login | Akademi Keperawatan Justitia</title>
-    <link rel="shortcut icon" href="{{ asset('assets/image/logo-universitas.jpeg') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/image/logo-universitas.png') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
@@ -42,7 +42,7 @@
             <!-- Logo -->
             <div
                 class="login-logo-container inline-flex items-center justify-center w-24 h-24 bg-white rounded-full mb-6 relative z-10 overflow-hidden">
-                <img src="{{ asset('assets/image/logo-universitas.jpeg') }}" alt="Logo"
+                <img src="{{ asset('assets/image/logo-universitas.png') }}" alt="Logo"
                     class="w-16 h-16 object-contain">
             </div>
 
