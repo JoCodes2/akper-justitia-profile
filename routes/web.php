@@ -10,9 +10,6 @@ use App\Http\Controllers\CMS\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::fallback(function () {
-    return view('frontend');
-});
 
 Route::post('justitia/login', [AuthController::class, 'login']);
 Route::get('justitia/profile/', [ProfileController::class, 'getAllData']);
@@ -20,9 +17,6 @@ Route::get('justitia/leader/', [LeaderController::class, 'getAllData']);
 Route::get('justitia/news/', [NewsController::class, 'getAllData']);
 Route::get('justitia/galeri/', [GaleriController::class, 'getAllData']);
 Route::get('justitia/prodi/', [ProdiController::class, 'getAllData']);
-
-
-
 
 
 Route::get('/cms/login', function () {
@@ -104,4 +98,8 @@ Route::middleware(['auth', 'web'])->group(function () {
         });
     });
     Route::post('justitia/logout', [AuthController::class, 'logout']);
+});
+
+Route::fallback(function () {
+    return view('frontend');
 });
