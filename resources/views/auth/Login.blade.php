@@ -17,14 +17,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {{-- Vite CSS & JS --}}
+    @vite(['resources/css/login.css', 'resources/js/admin/admin.js'])
 
-         <!-- Load Vite JS based on route -->
-    @if(request()->is('cms/*') || request()->is('cms/login'))
-         @vite(['resources/css/index.css', 'resources/css/login.css', 'resources/js/admin/admin.js'])
-    @else
-        @viteReactRefresh
-        @vite('resources/js/index.jsx')
-    @endif
 </head>
 
 <body class="p-4">

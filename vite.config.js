@@ -5,40 +5,49 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
-                // React UI
-                'resources/css/app.css',
-                'resources/js/index.jsx',
-
-                // Jquery admin
-                'resources/css/index.css',
-                'resources/css/login.css',
-                'resources/js/admin/admin.js',
-            ],
+            input: {
+                react: [
+                    'resources/css/app.css',
+                    'resources/js/index.jsx', // React UI
+                ],
+                jquery: [
+                    'resources/css/index.css',
+                    'resources/css/login.css',
+                    'resources/js/admin/admin.js', // jQuery admin
+                ],
+            },
             refresh: true,
         }),
-        react(),
+        react({
+            jsxRuntime: 'automatic',
+        }),
     ],
     build: {
-        // Mengoptimalkan chunking
+        outDir: 'public/build',
         rollupOptions: {
             output: {
                 manualChunks: {
-                    // Memisahkan vendor libraries
-                    'react-vendor': ['react', 'react-dom'],
-                    'jquery-vendor': ['jquery'],
-                }
-            }
+                    // React-side vendor
+                    'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+
+                    // jQuery-side vendor
+                    'jquery-vendor': ['jquery', 'jquery-validation'],
+
+                    // Shared libraries
+                    'axios-vendor': ['axios'],
+
+                    // Big libraries (biar nggak numpuk)
+                    'editor-vendor': ['summernote'],
+                    'icons-vendor': ['@fortawesome/fontawesome-free'],
+                },
+            },
         },
-        // Mengoptimalkan ukuran bundle
         chunkSizeWarningLimit: 600,
-        // Minify untuk production
         minify: 'esbuild',
     },
-    // Optimasi resolve
     resolve: {
         alias: {
             '@': '/resources/js',
-        }
-    }
+        },
+    },
 });

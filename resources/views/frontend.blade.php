@@ -90,16 +90,10 @@
             <p>Telepon: +62 852-9884-5213 | Email: Akperjustitia@gmail.com</p>
         </div>
     </noscript>
-
+    @viteReactRefresh
+    @vite('resources/js/index.jsx')
     <div id="frontend-app"></div>
 
-    <!-- Load Vite JS based on route -->
-    @if(request()->is('cms/*') || request()->is('cms/login'))
-        @vite('resources/js/admin/admin.js')
-    @else
-        <!-- Load frontend React JS -->
-        @viteReactRefresh
-        @vite('resources/js/index.jsx')
-    @endif
+
 </body>
 </html>

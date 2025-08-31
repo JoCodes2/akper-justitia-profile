@@ -15,12 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     {{-- Vite CSS & JS --}}
      <!-- Load Vite JS based on route -->
-    @if(request()->is('cms/*') || request()->is('cms/login'))
-         @vite(['resources/css/index.css', 'resources/js/admin/admin.js'])
-    @else
-        @viteReactRefresh
-        @vite('resources/js/index.jsx')
-    @endif
+   @vite(['resources/css/index.css', 'resources/js/admin/admin.js'])
+
 
 
 </head>
