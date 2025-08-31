@@ -89,9 +89,9 @@
         </div>
     </noscript>
 
-    <div id="frontend-app"></div>
 
     @viteReactRefresh
     @vite('resources/js/index.jsx')
+    <div id="frontend-app"></div>
 </body>
 </html>
