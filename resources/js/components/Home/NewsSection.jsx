@@ -127,6 +127,7 @@ const NewsSection = () => {
             </div>
 
             {/* MODAL */}
+            {/* MODAL */}
             <Modal
                 isOpen={!!selectedNews}
                 onClose={closeModal}
@@ -135,25 +136,29 @@ const NewsSection = () => {
                 {selectedNews && (
                     <div className="space-y-4">
                         <img
-                            src={selectedNews.image}
+                            src={`${baseUrl}/${selectedNews.image}`}
                             alt={selectedNews.title}
                             className="w-full h-60 object-contain bg-gray-100"
                         />
                         <div className="text-gray-500 text-sm flex flex-wrap gap-4">
                             <span className="flex items-center">
                                 <Calendar className="w-4 h-4 mr-1.5" />
-                                {selectedNews.date}
+                                {selectedNews.date_upload}
                             </span>
                             <span
                                 className={`px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(
                                     selectedNews.category
                                 )}`}
                             >
-                                {selectedNews.category}
+                                {selectedNews.category === "news"
+                                    ? "Berita"
+                                    : selectedNews.category === "event"
+                                    ? "Event"
+                                    : "Pengumuman"}
                             </span>
                             <span className="flex items-center">
                                 <User className="w-4 h-4 mr-1.5" />
-                                {selectedNews.author}
+                                {selectedNews.user?.name}
                             </span>
                         </div>
                         <div
