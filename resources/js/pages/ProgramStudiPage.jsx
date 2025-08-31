@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { GraduationCap, Award, Loader } from "lucide-react";
 import FadeIn from "../components/Ui/FadeIn";
-import prodiService from "../services/prodiService";
+import { apiGet } from "../admin/helper/api";
 
 const ProgramStudyPage = () => {
     const [programs, setPrograms] = useState([]);
@@ -14,12 +14,13 @@ const ProgramStudyPage = () => {
         const fetchPrograms = async () => {
             try {
                 setLoading(true);
-                const data = await prodiService.getAllProdi();
-                setPrograms(data);
+                const res = await apiGet(`${appUrl}/justitia/prodi`);
+                setPrograms(res.data.data);
+                setError(null);
+
                 setError(null);
             } catch (err) {
                 setError("Gagal memuat data program studi");
-                console.error("Error fetching programs:", err);
             } finally {
                 setLoading(false);
             }
@@ -34,8 +35,13 @@ const ProgramStudyPage = () => {
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
                     <div className="text-center">
-                        <Loader className="animate-spin mx-auto text-primary" size={48} />
-                        <p className="mt-4 text-gray-600">Memuat data program studi...</p>
+                        <Loader
+                            className="animate-spin mx-auto text-primary"
+                            size={48}
+                        />
+                        <p className="mt-4 text-gray-600">
+                            Memuat data program studi...
+                        </p>
                     </div>
                 </div>
                 <Footer />
@@ -63,7 +69,9 @@ const ProgramStudyPage = () => {
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
                     <div className="text-center">
-                        <p className="text-gray-600">Tidak ada data program studi</p>
+                        <p className="text-gray-600">
+                            Tidak ada data program studi
+                        </p>
                     </div>
                 </div>
                 <Footer />
@@ -96,7 +104,9 @@ const ProgramStudyPage = () => {
                         <FadeIn key={program.id} delay={index * 0.2}>
                             <div className="bg-white rounded-2xl shadow-md p-8 border border-gray-100">
                                 <h2 className="text-xl md:text-2xl font-heading font-semibold text-primary mb-6">
-                                    {program.name || program.nama_prodi || "Program Studi"}
+                                    {program.name ||
+                                        program.nama_prodi ||
+                                        "Program Studi"}
                                 </h2>
                                 <div className="space-y-3">
                                     <p className="flex items-center gap-3">
@@ -105,7 +115,9 @@ const ProgramStudyPage = () => {
                                             <span className="font-semibold">
                                                 Jenjang:
                                             </span>{" "}
-                                            {program.level || program.jenjang || "-"}
+                                            {program.level ||
+                                                program.jenjang ||
+                                                "-"}
                                         </span>
                                     </p>
                                     <p className="flex items-center gap-3">
@@ -114,18 +126,20 @@ const ProgramStudyPage = () => {
                                             <span className="font-semibold">
                                                 Akreditasi:
                                             </span>{" "}
-                                            {program.accreditation || program.akreditasi || "-"}
+                                            {program.accreditation ||
+                                                program.akreditasi ||
+                                                "-"}
                                         </span>
                                     </p>
                                 </div>
                                 <p className="text-gray-700 leading-relaxed mt-6">
-                                    {program.description || program.deskripsi || "Tidak ada deskripsi"}
+                                    {program.description ||
+                                        program.deskripsi ||
+                                        "Tidak ada deskripsi"}
                                 </p>
                             </div>
                         </FadeIn>
                     ))}
-
-
                 </section>
             </div>
 

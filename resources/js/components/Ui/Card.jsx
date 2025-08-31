@@ -7,16 +7,16 @@ const Card = ({
     imgClass = "w-full h-48 object-cover",
     onDetailClick,
 }) => {
-    const imageUrl = image ? `${import.meta.env.VITE_APP_URL || 'http://localhost:8000'}/uploads/galeri/${image}` : null;
+    const imageUrl = image ? `${appUrl}/uploads/galeri/${image}` : null;
 
     // Format tanggal jika ada
     const formatDate = (dateString) => {
-        if (!dateString) return '-';
+        if (!dateString) return "-";
         const date = new Date(dateString);
-        return date.toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
+        return date.toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
         });
     };
 
@@ -25,10 +25,10 @@ const Card = ({
             {imageUrl && (
                 <img
                     src={imageUrl}
-                    alt={name || 'Galeri Image'}
+                    alt={name || "Galeri Image"}
                     className={imgClass}
                     onError={(e) => {
-                        e.target.style.display = 'none';
+                        e.target.style.display = "none";
                     }}
                 />
             )}
