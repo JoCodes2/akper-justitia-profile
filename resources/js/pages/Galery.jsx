@@ -11,9 +11,12 @@ const Galeri = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedItem, setSelectedItem] = useState(null);
     const [showDetailModal, setShowDetailModal] = useState(false);
-    const itemsPerPage = 6; // 2 rows * 3 columns
+    const itemsPerPage = 6;
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
+
+    // ✅ ambil appUrl dari env
+    const appUrl = import.meta.env.VITE_APP_URL || "http://localhost:8000";
 
     const handleDetailClick = (item) => {
         setSelectedItem(item);
@@ -44,7 +47,6 @@ const Galeri = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
-    // Format tanggal
     const formatDate = (dateString) => {
         if (!dateString) return "-";
         const date = new Date(dateString);
@@ -55,7 +57,6 @@ const Galeri = () => {
         });
     };
 
-    // Pagination Logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = galeriData.slice(indexOfFirstItem, indexOfLastItem);
@@ -65,7 +66,6 @@ const Galeri = () => {
             {/* Modal Detail */}
             {showDetailModal && (
                 <div className="fixed inset-0 flex items-center justify-center z-50">
-                    {/* Backdrop */}
                     <div
                         className="fixed inset-0 bg-black bg-opacity-50"
                         onClick={closeDetailModal}
@@ -89,10 +89,7 @@ const Galeri = () => {
                         {selectedItem?.image && (
                             <div className="mb-6">
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_APP_URL ||
-                                        "http://localhost:8000"
-                                    }/uploads/galeri/${selectedItem.image}`}
+                                    src={`${appUrl}/uploads/galeri/${selectedItem.image}`}
                                     alt={selectedItem.name}
                                     className="w-full h-auto max-h-80 object-cover rounded-lg shadow-md"
                                 />
@@ -113,12 +110,10 @@ const Galeri = () => {
                     <div className="mb-8 text-center">
                         <FadeIn delay={0.2}>
                             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-                                Galeri{" "}
-                                <span className="text-primary">Kampus</span>
+                                Galeri <span className="text-primary">Kampus</span>
                             </h1>
                             <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
-                                Halaman ini memuat moment-moment penting
-                                seputaran kampus
+                                Halaman ini memuat moment-moment penting seputaran kampus
                             </p>
                         </FadeIn>
                     </div>
@@ -141,7 +136,7 @@ const Galeri = () => {
                         </div>
                     </div>
 
-                    {/* Pagination Controls */}
+                    {/* Pagination */}
                     <div className="flex justify-center mt-4">
                         <button
                             onClick={() =>
