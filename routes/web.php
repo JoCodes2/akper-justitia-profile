@@ -90,7 +90,6 @@ Route::middleware(['auth', 'web'])->group(function () {
         });
 
         Route::prefix('prodi')->controller(ProdiController::class)->group(function () {
-            Route::get('/', 'getAllData');
             Route::post('/create', 'createData');
             Route::get('/get/{id}', 'getDataById');
             Route::post('/update/{id}', 'updateData');
