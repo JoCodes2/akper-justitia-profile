@@ -6,11 +6,11 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                // Frontend React
+                // React UI
                 'resources/css/app.css',
                 'resources/js/index.jsx',
 
-                // Admin jQuery
+                // Jquery admin
                 'resources/css/index.css',
                 'resources/css/login.css',
                 'resources/js/admin/admin.js',
@@ -20,21 +20,25 @@ export default defineConfig({
         react(),
     ],
     build: {
+        // Mengoptimalkan chunking
         rollupOptions: {
             output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
-                        if (id.includes('react')) return 'react';
-                        if (id.includes('jquery')) return 'jquery';
-                        if (id.includes('axios')) return 'axios';
-                        if (id.includes('summernote')) return 'summernote';
-                        if (id.includes('@fortawesome')) return 'fontawesome';
-                        return 'vendor';
-                    }
-                },
-            },
+                manualChunks: {
+                    // Memisahkan vendor libraries
+                    'react-vendor': ['react', 'react-dom'],
+                    'jquery-vendor': ['jquery'],
+                }
+            }
         },
-        // Biar warning size lebih longgar
-        chunkSizeWarningLimit: 2000,
+        // Mengoptimalkan ukuran bundle
+        chunkSizeWarningLimit: 600,
+        // Minify untuk production
+        minify: 'esbuild',
     },
+    // Optimasi resolve
+    resolve: {
+        alias: {
+            '@': '/resources/js',
+        }
+    }
 });

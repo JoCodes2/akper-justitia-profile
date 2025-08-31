@@ -14,7 +14,14 @@
     {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     {{-- Vite CSS & JS --}}
-    @vite(['resources/css/index.css', 'resources/js/admin/admin.js'])
+     <!-- Load Vite JS based on route -->
+    @if(request()->is('cms/*') || request()->is('cms/login'))
+         @vite(['resources/css/index.css', 'resources/js/admin/admin.js'])
+    @else
+        @viteReactRefresh
+        @vite('resources/js/index.jsx')
+    @endif
+
 
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen font-body">
