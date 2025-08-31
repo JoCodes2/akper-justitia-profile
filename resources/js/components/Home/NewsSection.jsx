@@ -135,31 +135,25 @@ const NewsSection = () => {
                 {selectedNews && (
                     <div className="space-y-4">
                         <img
-                            src={`${baseUrl}/${selectedNews.image}`}
+                            src={selectedNews.image}
                             alt={selectedNews.title}
-                            className="w-full h-48 object-scale-down bg-gray-100"
+                            className="w-full h-60 object-contain bg-gray-100"
                         />
                         <div className="text-gray-500 text-sm flex flex-wrap gap-4">
                             <span className="flex items-center">
                                 <Calendar className="w-4 h-4 mr-1.5" />
-                                {selectedNews.date_upload}
+                                {selectedNews.date}
                             </span>
-
                             <span
                                 className={`px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(
                                     selectedNews.category
                                 )}`}
                             >
-                                {selectedNews.category === "news"
-                                    ? "Berita"
-                                    : selectedNews.category === "event"
-                                    ? "Event"
-                                    : "Pengumuman"}
+                                {selectedNews.category}
                             </span>
-
                             <span className="flex items-center">
                                 <User className="w-4 h-4 mr-1.5" />
-                                {selectedNews.user.name}
+                                {selectedNews.author}
                             </span>
                         </div>
                         <div
