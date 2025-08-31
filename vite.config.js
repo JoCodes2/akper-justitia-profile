@@ -6,8 +6,11 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
+                // Frontend React
                 'resources/css/app.css',
                 'resources/js/index.jsx',
+
+                // Admin jQuery
                 'resources/css/index.css',
                 'resources/css/login.css',
                 'resources/js/admin/admin.js',
@@ -21,20 +24,26 @@ export default defineConfig({
 
     build: {
         outDir: 'public/build',
-        sourcemap: process.env.NODE_ENV !== 'production',
+        sourcemap: false,
         cssCodeSplit: true,
         cssMinify: 'esbuild',
 
         rollupOptions: {
             input: {
+                // === Frontend bundle ===
                 frontend: 'resources/js/index.jsx',
+                frontendCss: 'resources/css/app.css',
+
+                // === Backend bundle ===
                 backend: 'resources/js/admin/admin.js',
+                backendCss: 'resources/css/index.css',
+                loginCss: 'resources/css/login.css',
             },
             output: {
                 manualChunks: (id) => {
                     if (id.includes('node_modules')) {
-                        if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-                            return 'react-vendor';
+                        if (id.includes('react') || id.includes('react-dom')) {
+                            return;
                         }
                         if (id.includes('jquery') || id.includes('jquery-validation')) {
                             return 'jquery-vendor';
@@ -43,7 +52,7 @@ export default defineConfig({
                             return 'axios-vendor';
                         }
                         if (id.includes('summernote')) {
-                            return 'editor-vendor';
+                            return;
                         }
                         if (id.includes('@fortawesome/fontawesome-free')) {
                             return;
@@ -51,16 +60,21 @@ export default defineConfig({
                         return 'shared-vendor';
                     }
                 },
-                chunkFileNames: 'assets/[name]-[hash].js',
-                entryFileNames: 'assets/[name]-[hash].js',
-                assetFileNames: 'assets/[name]-[hash][extname]',
+                chunkFileNames: 'assets/js/[name]-[hash].js',
+                entryFileNames: 'assets/js/[name]-[hash].js',
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.name.endsWith('.css')) {
+                        return 'assets/css/[name]-[hash][extname]';
+                    }
+                    return 'assets/[name]-[hash][extname]';
+                },
             },
         },
 
-        chunkSizeWarningLimit: 2000, // Increase limit untuk handle large images
+        chunkSizeWarningLimit: 2000,
         minify: 'esbuild',
         target: 'es2020',
-        reportCompressedSize: false,
+        reportCompressedSize: true,
     },
 
     resolve: {
@@ -80,10 +94,6 @@ export default defineConfig({
     },
 
     css: {
-        devSourcemap: process.env.NODE_ENV !== 'production',
-    },
-
-    define: {
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        devSourcemap: false,
     },
 });

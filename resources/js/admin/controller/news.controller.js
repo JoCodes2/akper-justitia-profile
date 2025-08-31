@@ -140,7 +140,7 @@ export default function newsController() {
         newsService.upsertNews(e, checkingEdit)
     })
 
-    $(document).on('click', '.edit-btn', function () {
+    $(document).on('click', '.edit-btn-news', function () {
         const id = $(this).data('id');
 
         const $form = $("#formNews");
@@ -162,7 +162,7 @@ export default function newsController() {
     });
 
 
-    $(document).on('click', '.delete-btn', function () {
+    $(document).on('click', '.delete-btn-news', function () {
         const id = $(this).data('id')
         newsService.deleteData(id)
     })

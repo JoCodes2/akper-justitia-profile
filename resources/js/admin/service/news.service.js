@@ -86,10 +86,10 @@ class NewsService {
                                 <td class="px-6 py-3 text-sm text-gray-700">${item.user.name}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">${formattedDate}</td>
                                 <td class="px-6 py-3 text-center text-sm">
-                                    <button class="text-primary hover:text-primary-dark mx-1 edit-btn"  data-modal-target="#upsertNews"  data-id="${item.id}">
+                                    <button class="text-primary hover:text-primary-dark mx-1 edit-btn-news"  data-modal-target="#upsertNews"  data-id="${item.id}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="text-red-500 hover:text-red-700 mx-1 delete-btn" data-id="${item.id}">
+                                    <button class="text-red-500 hover:text-red-700 mx-1 delete-btn-news" data-id="${item.id}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </td>

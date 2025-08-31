@@ -54,7 +54,7 @@ const StoryPage = () => {
                         {/* Deskripsi */}
                         <div>
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                                Awal Berdirinya
+                                Sejarah Singkat
                             </h2>
                             {loading ? (
                                 <p className="text-gray-500 italic">

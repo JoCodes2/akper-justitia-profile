@@ -50,9 +50,14 @@ const Galeri = () => {
     if (error)
         return <div className="text-center py-10 text-red-600">{error}</div>;
 
-    const formatDate = (dateString) => {
-        if (!dateString) return "-";
-        const date = new Date(dateString);
+    const formatDate = (dateInput) => {
+        if (!dateInput || dateInput === "0000-00-00") return "-";
+
+        // pastikan jadi object Date
+        const date = new Date(dateInput);
+
+        if (isNaN(date)) return "-";
+
         return date.toLocaleDateString("id-ID", {
             day: "numeric",
             month: "long",
@@ -123,9 +128,7 @@ const Galeri = () => {
                                     <Card
                                         image={item.image}
                                         name={item.name}
-                                        date_upload={formatDate(
-                                            item.date_upload
-                                        )}
+                                        date_upload={item.date_upload}
                                         created_by={item.user?.name}
                                         onDetailClick={() =>
                                             handleDetailClick(item)
