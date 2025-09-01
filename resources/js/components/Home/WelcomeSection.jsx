@@ -1,7 +1,7 @@
 import { Users, Award, Building, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom"; // ⬅️ Tambahkan ini
 import Button from "../Ui/Button";
-import welcomeStudents from "../../assets/home.jpg";
+import welcomeStudents from "../../assets/homee.jpg";
 
 // Komponen Card Lokal
 const Card = ({ children, className = "" }) => {
@@ -57,7 +57,7 @@ const WelcomeSection = () => {
                         </div>
                         <div className="absolute -bottom-3 sm:-bottom-4 -left-3 sm:-left-4 bg-primary text-white px-3 sm:px-4 py-2 sm:py-3 rounded-xl shadow-md text-center">
                             <div className="text-base sm:text-xl font-bold">
-                                2005
+                                1995
                             </div>
                             <div className="text-xs sm:text-sm">
                                 Tahun Berdiri

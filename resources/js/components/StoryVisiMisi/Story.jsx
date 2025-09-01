@@ -1,7 +1,7 @@
 // src/pages/SejarahPage.jsx
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Slide1 from "../../assets/story.jpg";
+import sejarah from "../../assets/sejarah.jpg";
 
 const StoryPage = () => {
     const [history, setHistory] = useState("");
@@ -45,7 +45,7 @@ const StoryPage = () => {
                         {/* Gambar */}
                         <div>
                             <img
-                                src={Slide1}
+                                src={sejarah}
                                 alt="Sejarah Universitas AZLAM"
                                 className="w-full h-auto rounded-xl shadow"
                             />

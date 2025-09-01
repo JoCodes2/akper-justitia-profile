@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import home from "../../assets/home.jpg";
 import heroSlide1 from "../../assets/slide1.jpg";
-import heroSlide2 from "../../assets/slide2.jpg";
 import heroSlide3 from "../../assets/slide3.jpg";
 import heroSlide4 from "../../assets/slide4.jpg";
 import heroSlide5 from "../../assets/slide5.jpg";
@@ -29,13 +29,13 @@ const HeroCarousel = () => {
                 "Membuka peluang kerja dan pengabdian di berbagai fasilitas kesehatan",
         },
         {
-            image: heroSlide3,
+            image: home,
             title: "Meraih Prestasi Bersama",
             subtitle:
                 "Wisuda sebagai langkah menuju pengabdian dan karier di bidang kesehatan",
         },
         {
-            image: heroSlide2,
+            image: heroSlide1,
             title: "Komunitas Mahasiswa Aktif",
             subtitle:
                 "Berkembang melalui organisasi, kegiatan sosial, dan pengabdian masyarakat",
