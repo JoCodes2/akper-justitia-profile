@@ -23,7 +23,7 @@
     <meta name="description" content="Akademi Keperawatan Justitia menyediakan pendidikan keperawatan profesional dengan dosen berpengalaman, fasilitas lengkap, dan peluang karier di dunia kesehatan.">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://akperjustitia.acid" />
+    <link rel="canonical" href="https://akperjustitia.ac.id" />
 
     <!-- Meta Keywords (opsional) -->
     <meta name="keywords" content="Akademi Keperawatan Justitia, Akper Palu, Pendidikan Keperawatan, Kampus Keperawatan, Kuliah Keperawatan Sulawesi Tengah, Justitia">
@@ -50,31 +50,32 @@
     <meta name="twitter:site" content="@akperjustitia">
 
     <!-- Structured Data (Schema.org JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollegeOrUniversity",
-      "name": "Akademi Keperawatan Justitia",
-      "alternateName": "Akper Justitia",
-      "url": "https://akperjustitia.acid",
-      "logo": "{{ asset('assets/image/logo-universitas.png') }}",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Jl. Uwe Lambori, Tondo, Kec. Mantikulore",
-        "addressLocality": "Palu",
-        "addressRegion": "Sulawesi Tengah",
-        "postalCode": "94148",
-        "addressCountry": "ID"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+62 852-9884-5213",
-        "contactType": "customer service",
-        "areaServed": "ID",
-        "availableLanguage": ["Indonesian", "English"]
-      },
-    }
-    </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollegeOrUniversity",
+  "name": "Akademi Keperawatan Justitia",
+  "alternateName": "Akper Justitia",
+  "url": "https://akperjustitia.ac.id",
+  "logo": "{{ asset('assets/image/logo-universitas.png') }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Uwe Lambori, Tondo, Kec. Mantikulore",
+    "addressLocality": "Palu",
+    "addressRegion": "Sulawesi Tengah",
+    "postalCode": "94148",
+    "addressCountry": "ID"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+62 852-9884-5213",
+    "contactType": "customer service",
+    "areaServed": "ID",
+    "availableLanguage": ["Indonesian", "English"]
+  }
+}
+</script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
