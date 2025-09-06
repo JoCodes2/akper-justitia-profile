@@ -48,6 +48,7 @@
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+62 852-9884-5213",
+        "email": "Akperjustitia@gmail.com",
         "contactType": "customer service",
         "areaServed": "ID",
         "availableLanguage": ["Indonesian", "English"]

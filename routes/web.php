@@ -9,7 +9,7 @@ use App\Http\Controllers\CMS\ProfileController;
 use App\Http\Controllers\CMS\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-
+use Spatie\Sitemap\SitemapGenerator;
 
 Route::post('justitia/login', [AuthController::class, 'login']);
 Route::get('justitia/profile/', [ProfileController::class, 'getAllData']);
@@ -101,4 +101,10 @@ Route::middleware(['auth', 'web'])->group(function () {
 
 Route::fallback(function () {
     return view('frontend');
+});
+Route::get('/generate-sitemap', function () {
+    SitemapGenerator::create('https://akperjustitia.ac.id')
+        ->writeToFile(public_path('sitemap.xml'));
+
+    return '✅ Sitemap berhasil dibuat di public/sitemap.xml';
 });
