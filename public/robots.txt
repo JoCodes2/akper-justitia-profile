@@ -1,5 +1,2 @@
 User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://akperjustitia.ac.id/sitemap.xml
+Disallow:

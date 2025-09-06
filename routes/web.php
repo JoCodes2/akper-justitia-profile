@@ -98,13 +98,13 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
     Route::post('justitia/logout', [AuthController::class, 'logout']);
 });
-
-Route::fallback(function () {
-    return view('frontend');
-});
 Route::get('/generate-sitemap', function () {
     SitemapGenerator::create('https://akperjustitia.ac.id')
         ->writeToFile(public_path('sitemap.xml'));
 
     return '✅ Sitemap berhasil dibuat di public/sitemap.xml';
+});
+
+Route::fallback(function () {
+    return view('frontend');
 });
