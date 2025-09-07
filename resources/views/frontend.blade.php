@@ -21,8 +21,8 @@
     </script>
 
     <!-- Meta SEO Dasar -->
-    <meta name="description" content="Akademi Keperawatan Justitia menyediakan pendidikan keperawatan profesional dengan dosen berpengalaman, fasilitas lengkap, dan peluang karier di dunia kesehatan.">
-    <meta name="keywords" content="Akademi Keperawatan Justitia, Akper Palu, Pendidikan Keperawatan, Kampus Keperawatan, Kuliah Keperawatan Sulawesi Tengah, Justitia">
+    <meta name="description" content="Akademi Keperawatan Justitia (Akper Justitia atau Akpe Justitia) menyediakan pendidikan keperawatan profesional dengan dosen berpengalaman, fasilitas lengkap, dan peluang karier di dunia kesehatan.">
+    <meta name="keywords" content="Akademi Keperawatan Justitia, Akper Justitia, Akpe Justitia, Pendidikan Keperawatan, Kampus Keperawatan, Kuliah Keperawatan Palu, Kuliah Keperawatan Sulawesi Tengah, Justitia">
     <meta name="author" content="Akademi Keperawatan Justitia">
 
     <!-- Canonical URL -->
@@ -34,9 +34,10 @@
       "@context": "https://schema.org",
       "@type": "CollegeOrUniversity",
       "name": "Akademi Keperawatan Justitia",
-      "alternateName": "Akper Justitia",
+      "alternateName": ["Akper Justitia", "Akpe Justitia"],
       "url": "https://akperjustitia.ac.id",
       "logo": "https://akperjustitia.ac.id/assets/image/logo-universitas.png",
+      "email": "Akperjustitia@gmail.com",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Jl. Uwe Lambori, Tondo, Kec. Mantikulore",
@@ -45,14 +46,13 @@
         "postalCode": "94148",
         "addressCountry": "ID"
       },
-      "contactPoint": {
+      "contactPoint": [{
         "@type": "ContactPoint",
         "telephone": "+62 852-9884-5213",
-        "email": "Akperjustitia@gmail.com",
         "contactType": "customer service",
         "areaServed": "ID",
-        "availableLanguage": ["Indonesian", "English"]
-      }
+        "availableLanguage": ["Indonesian","English"]
+      }]
     }
     </script>
 </head>
@@ -72,3 +72,4 @@
     <div id="frontend-app"></div>
 </body>
 </html>
+
